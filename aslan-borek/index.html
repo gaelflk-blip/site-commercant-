@@ -91,7 +91,7 @@ h2{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.4rem)
 .menu{background:var(--flour)}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);margin-top:48px}
 .menu h3{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--red);padding-bottom:10px;border-bottom:3px solid var(--tile);margin-bottom:8px}
-.dish{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:14px 0;border-bottom:1px dashed #C9C2B5}
+.dish{display:grid;grid-template-columns:1fr;gap:2px 16px;padding:14px 0;border-bottom:1px dashed #C9C2B5}
 .dish b{font-family:var(--display);font-weight:800;font-size:1.2rem}
 .dish .price{font-family:var(--display);font-weight:800;font-size:1.2rem;font-variant-numeric:tabular-nums}
 .dish small{grid-column:1/-1;color:var(--muted);font-size:.95rem}
@@ -138,14 +138,14 @@ footer a{color:var(--gold)}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#">Aslan <span>Börek</span></a>
+    <a class="brand" href="#"><img src="img/logo.png" alt="Aslan Börek, spécialités turques" width="640" height="296" style="height:44px;width:auto"></a>
     <nav aria-label="Navigation principale">
       <a href="#fait-main">Fait main</a>
       <a href="#carte">La carte</a>
       <a href="#camion">Le camion</a>
       <a href="#evenements">Événements</a>
     </nav>
-    <a class="call" href="tel:+32470577902">+32 470 57 79 02</a>
+    <a class="call" href="tel:+33767444974">Appeler</a>
   </div>
 </header>
 
@@ -192,26 +192,27 @@ footer a{color:var(--gold)}
   <section id="carte" class="menu">
     <div class="wrap">
       <h2>La carte</h2>
-      <p class="lead">Tous nos börek sont servis avec oignons, persil, épices et beurre salé.</p>
+      <p class="lead">Onze garnitures, végétariennes ou à la viande. Les prix sont affichés sur le camion et peuvent varier selon le marché.</p>
       <div class="menu-grid">
         <div>
           <h3>Végétariens</h3>
-          <div class="dish"><b>Fromage</b><span class="price">7 €</span><small>Fromage, persil, épices et beurre salé</small></div>
-          <div class="dish"><b>Chèvre-miel</b><span class="price">8 €</span><small>Chèvre, miel, thym et beurre salé</small></div>
-          <div class="dish"><b>Épinards-feta</b><span class="price">8 €</span><small>Épinards frais, feta, oignons, persil et épices</small></div>
-          <div class="dish"><b>Champignons</b><span class="price">8 €</span><small>Champignons, feta, oignons, persil et épices</small></div>
+          <div class="dish"><b>Fromage</b><small>Féta, oignons, persil, épices et beurre salé</small></div>
+          <div class="dish"><b>Pomme de terre</b><small>Pomme de terre, oignons, persil, épices et beurre salé</small></div>
+          <div class="dish"><b>Chèvre-miel</b><small>Chèvre, miel, thym et beurre salé</small></div>
+          <div class="dish"><b>Épinards</b><small>Épinards, féta, oignons, persil, épices et beurre salé</small></div>
+          <div class="dish"><b>Poireaux</b><small>Poireaux, féta, oignons, persil, épices et beurre salé</small></div>
+          <div class="dish"><b>Champignons</b><small>Champignons, féta, oignons, épices et beurre salé</small></div>
         </div>
         <div>
           <h3>Viandes</h3>
-          <div class="dish"><b>Bœuf</b><span class="price">9 €</span><small>Bœuf, feta, oignons, persil, épices et beurre salé</small></div>
-          <div class="dish"><b>Poulet</b><span class="price">9 €</span><small>Poulet, feta, oignons, persil, épices et beurre salé</small></div>
-          <div class="dish"><b>Poulet-courgette</b><span class="price">9,50 €</span><small>Poulet, courgette, feta, oignons, persil et épices</small></div>
-          <div class="dish"><b>Mix 3 ingrédients</b><span class="price">10 €</span><small>Trois garnitures au choix dans la carte</small></div>
-          <h3 style="margin-top:36px">Dessert</h3>
-          <div class="dish"><b>Baklava</b><span class="price">2 €</span></div>
+          <div class="dish"><b>Bœuf</b><small>Bœuf, féta, oignons, persil, épices et beurre salé</small></div>
+          <div class="dish"><b>Lahmacun</b><small>Bœuf, ail, tomate, poivrons rouges, oignons, persil et épices</small></div>
+          <div class="dish"><b>Poulet</b><small>Poulet, féta, oignons, persil, épices et beurre salé</small></div>
+          <div class="dish"><b>Poulet-courgette</b><small>Poulet, courgette, féta, oignons, persil, épices et beurre salé</small></div>
+          <div class="dish"><b>Mix 3 ingrédients</b><small>Au choix dans la carte, avec oignons, persil, fromage et épices</small></div>
         </div>
       </div>
-      <p class="menu-note"><strong>Fabriqués à la main</strong><span>Prix pouvant varier selon le marché ou l'événement.</span></p>
+      <p class="menu-note"><strong>Fabriqués à la main</strong><span>Base de pâte à pain, produits frais et locaux.</span></p>
     </div>
   </section>
 
@@ -228,7 +229,7 @@ footer a{color:var(--gold)}
         <div class="find">
           <b>Où nous trouver cette semaine ?</b>
           <!-- À COMPLÉTER : liste des marchés (jour, lieu, horaires) -->
-          Nos marchés et horaires arrivent ici très bientôt. En attendant, appelez-nous : on vous dit où est le camion.
+          Nos marchés et horaires arrivent ici très bientôt. En attendant, suivez <a href="https://www.instagram.com/aslanborek/">@aslanborek</a> sur Instagram ou appelez-nous : on vous dit où est le camion.
         </div>
       </div>
     </div>
@@ -245,8 +246,9 @@ footer a{color:var(--gold)}
           <li>Intérieur comme extérieur</li>
         </ul>
         <div class="actions" style="display:flex;flex-wrap:wrap;gap:12px">
-          <a class="btn btn-gold" href="tel:+32470577902">Appeler pour un devis</a>
-          <a class="btn btn-line" href="https://wa.me/32470577902">Écrire sur WhatsApp</a>
+          <a class="btn btn-gold" href="tel:+33767444974">Appeler Arnaud</a>
+          <a class="btn btn-gold" href="tel:+33767587809">Appeler Damla</a>
+          <a class="btn btn-line" href="mailto:aslan.borek.bxl@gmail.com?subject=Demande%20traiteur">Demander un devis par e-mail</a>
         </div>
       </div>
       <img src="img/comptoir-evenement.jpg" alt="Le camion installé dans une salle pour un repas d'entreprise, tables dressées au fond" loading="lazy" width="1400" height="1050">
@@ -257,11 +259,11 @@ footer a{color:var(--gold)}
 <footer>
   <div class="wrap">
     <a class="brand" href="#">Aslan Börek</a>
-    <p>Spécialités turques faites à la main<br>GSM <a href="tel:+32470577902">+32 470 57 79 02</a></p>
-    <!-- À COMPLÉTER : lien Instagram -->
+    <p>Arnaud : <a href="tel:+33767444974">+33 7 67 44 49 74</a><br>Damla : <a href="tel:+33767587809">+33 7 67 58 78 09</a></p>
+    <p><a href="https://www.instagram.com/aslanborek/">Instagram @aslanborek</a><br><a href="mailto:aslan.borek.bxl@gmail.com">aslan.borek.bxl@gmail.com</a></p>
   </div>
 </footer>
 
-<a class="mobile-call" href="tel:+32470577902">Appeler Aslan Börek</a>
+<a class="mobile-call" href="tel:+33767444974">Appeler Aslan Börek</a>
 </body>
 </html>
