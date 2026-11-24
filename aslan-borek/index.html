@@ -159,6 +159,8 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 .dish b{transition:color .25s}
 .dish:hover b{color:var(--red)}
 .hero-photo img{will-change:transform}
+.hero-gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1s ease;touch-action:pan-y}
+.hero-gl.on{opacity:1}
 .truck-photos{overflow:hidden}
 .truck-photos img{will-change:transform}
 .split-line{overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
@@ -319,5 +321,6 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 <script src="vendor/SplitText.min.js" defer></script>
 <script src="vendor/lenis.min.js" defer></script>
 <script src="animations.js" defer></script>
+<script src="hero-gl.js" defer></script>
 </body>
 </html>
