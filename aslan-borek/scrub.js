@@ -6,9 +6,14 @@
   if (!hero) return;
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || !window.gsap || !window.ScrollTrigger;
 
-  var COUNT = 90, frames = new Array(COUNT), loaded = 0;
+  /* Téléphone (écran en hauteur) : version recadrée en vertical, plus légère (60 images de 480×720).
+     Ordinateur : version complète (90 images de 1280×720). */
+  var portrait = hero.clientHeight > hero.clientWidth;
+  var touch = matchMedia('(pointer: coarse)').matches;
+  var SET = portrait ? 'img/scrub-m/' : 'img/scrub/';
+  var COUNT = portrait ? 60 : 90, frames = new Array(COUNT), loaded = 0;
   var canvas = hero.querySelector('.scrub-canvas'), ctx = canvas.getContext('2d', { alpha: false });
-  var src = function (i) { return 'img/scrub/f' + String(i + 1).padStart(3, '0') + '.webp'; };
+  var src = function (i) { return SET + 'f' + String(i + 1).padStart(3, '0') + '.webp'; };
   var current = 0;
 
   var lastW = 0;
@@ -17,7 +22,7 @@
     if (Math.abs(r0.width - lastW) < 2 && canvas.width) return; // la barre d'adresse de l'iPhone ne doit pas tout redessiner
     lastW = r0.width;
     // Pas plus grand que la vidéo source (1280 px) : au-delà, c'est du calcul pour rien
-    var r = canvas.getBoundingClientRect(), k = Math.min(window.devicePixelRatio || 1, 1280 / r.width, 1.5);
+    var r = canvas.getBoundingClientRect(), k = Math.min(window.devicePixelRatio || 1, (portrait ? 480 : 1280) / r.width, 1.5);
     canvas.width = Math.round(r.width * k); canvas.height = Math.round(r.height * k);
     drawn = -1; draw(current);
   }
@@ -34,7 +39,7 @@
     var cw = canvas.width, ch = canvas.height, s = Math.max(cw / iw, ch / ih);
     var w = iw * s, h = ih * s;
     // sur téléphone (format portrait), on cadre un peu à droite pour garder le börek et la main
-    var fx = cw < ch ? 0.58 : 0.5;
+    var fx = 0.5;
     ctx.drawImage(img, (cw - w) * fx, (ch - h) / 2, w, h);
     if (frames[i] === img) drawn = i;
   }
@@ -45,7 +50,8 @@
       im.onload = function () {
         // Décodage à l'avance (hors du fil principal quand c'est possible) : plus de saccade au défilement
         var done = function (bmp) { frames[i] = bmp || im; loaded++; ok(); };
-        if (window.createImageBitmap) createImageBitmap(im).then(done, function () { done(); });
+        // Sur téléphone on laisse le navigateur gérer la mémoire (pas de bitmaps gardés en mémoire)
+        if (window.createImageBitmap && !touch) createImageBitmap(im).then(done, function () { done(); });
         else if (im.decode) im.decode().then(function () { done(); }, function () { done(); });
         else done();
       };
@@ -76,7 +82,7 @@
       btn.hidden = true;
       var t0 = performance.now();
       (function tick(now) {
-        var i = Math.min(COUNT - 1, Math.floor((now - t0) / 1000 * 9));
+        var i = Math.min(COUNT - 1, Math.floor((now - t0) / 1000 * (COUNT / 10)));
         draw(i);
         if (i < COUNT - 1) requestAnimationFrame(tick);
         else { btn.textContent = '↺ Revoir'; btn.hidden = false; }
