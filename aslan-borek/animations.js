@@ -46,7 +46,7 @@
 
     var intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
     intro
-      .fromTo('.hero-photo', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.2, ease: 'expo.inOut' }, 0)
+      .fromTo('.hero-photo', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.2, ease: 'expo.inOut', clearProps: 'clipPath' }, 0)
             .from(title.chars, { yPercent: 110, duration: 0.9, stagger: 0.045 }, 0.25)
       .from('.hero-text p', { y: 24, autoAlpha: 0, duration: 0.8 }, 0.8)
       .from('.hero .actions .btn', { y: 20, autoAlpha: 0, duration: 0.7, stagger: 0.1 }, 0.95)
@@ -62,15 +62,16 @@
 
     /* ---------- 2. Bandeau des garnitures : accélère quand on défile ---------- */
     var loop = gsap.to('.marquee-track', { xPercent: -50, duration: 32, ease: 'none', repeat: -1 });
+    /* Le bandeau accélère un peu quand on défile, mais ne part jamais en arrière */
     var boost = gsap.quickTo(loop, 'timeScale', { duration: 0.6, ease: 'power2.out' });
     ScrollTrigger.create({
       onUpdate: function (self) {
-        var v = self.getVelocity() / 250;
-        boost(gsap.utils.clamp(-6, 6, v === 0 ? 1 : (self.direction * Math.max(1, Math.abs(v)))));
+        boost(gsap.utils.clamp(1, 3, Math.abs(self.getVelocity()) / 400));
         clearTimeout(window.__mq);
-        window.__mq = setTimeout(function () { boost(self.direction < 0 ? -1 : 1); }, 150);
+        window.__mq = setTimeout(function () { boost(1); }, 150);
       }
     });
+
     /* ---------- 3. Titres : les lignes montent une à une ---------- */
     gsap.utils.toArray('h2.reveal').forEach(function (h) {
       var split = new SplitText(h, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
