@@ -3,9 +3,8 @@
    c'est la technique la plus fluide, y compris sur iPhone. */
 (function () {
   var hero = document.querySelector('.hero.scrub');
-  if (!hero || !window.gsap || !window.ScrollTrigger) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  gsap.registerPlugin(ScrollTrigger);
+  if (!hero) return;
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || !window.gsap || !window.ScrollTrigger;
 
   var COUNT = 90, frames = new Array(COUNT), loaded = 0;
   var canvas = hero.querySelector('.scrub-canvas'), ctx = canvas.getContext('2d');
@@ -51,6 +50,26 @@
     })(0);
   });
   addEventListener('resize', size);
+
+  /* Animations réduites sur l'appareil : pas de défilement piloté,
+     mais un bouton pour lancer la vidéo quand on le souhaite */
+  if (reduced) {
+    var btn = document.createElement('button');
+    btn.className = 'play-btn'; btn.type = 'button'; btn.textContent = '▶ Voir la vidéo';
+    hero.appendChild(btn);
+    btn.addEventListener('click', function () {
+      btn.hidden = true;
+      var t0 = performance.now();
+      (function tick(now) {
+        var i = Math.min(COUNT - 1, Math.floor((now - t0) / 1000 * 9));
+        draw(i);
+        if (i < COUNT - 1) requestAnimationFrame(tick);
+        else { btn.textContent = '↺ Revoir'; btn.hidden = false; }
+      })(t0);
+    });
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
 
   /* La section reste à l'écran pendant que la vidéo avance */
   var state = { f: 0 };

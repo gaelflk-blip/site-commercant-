@@ -183,6 +183,7 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 .scroll-hint span{width:2px;height:34px;background:linear-gradient(var(--gold),transparent);animation:hint 1.8s ease-in-out infinite}
 @keyframes hint{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (prefers-reduced-motion:reduce){.scroll-hint{display:none}}
+.play-btn{position:absolute;z-index:4;left:50%;top:32%;transform:translate(-50%,-50%);font:inherit;font-weight:600;color:var(--tile-deep);background:var(--gold);border:0;border-radius:999px;padding:14px 22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 @media (max-width:860px){
   .scrub-shade{background:linear-gradient(0deg,rgba(18,29,56,.94) 0%,rgba(18,29,56,.6) 38%,rgba(18,29,56,0) 62%)}
   .hero.scrub .hero-text{justify-content:flex-end;padding:0 20px 108px}
