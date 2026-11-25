@@ -7,7 +7,7 @@
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || !window.gsap || !window.ScrollTrigger;
 
   var COUNT = 90, frames = new Array(COUNT), loaded = 0;
-  var canvas = hero.querySelector('.scrub-canvas'), ctx = canvas.getContext('2d');
+  var canvas = hero.querySelector('.scrub-canvas'), ctx = canvas.getContext('2d', { alpha: false });
   var src = function (i) { return 'img/scrub/f' + String(i + 1).padStart(3, '0') + '.webp'; };
   var current = 0;
 
@@ -16,28 +16,39 @@
     var r0 = canvas.getBoundingClientRect();
     if (Math.abs(r0.width - lastW) < 2 && canvas.width) return; // la barre d'adresse de l'iPhone ne doit pas tout redessiner
     lastW = r0.width;
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.5), r = canvas.getBoundingClientRect();
-    canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
-    draw(current);
+    // Pas plus grand que la vidéo source (1280 px) : au-delà, c'est du calcul pour rien
+    var r = canvas.getBoundingClientRect(), k = Math.min(window.devicePixelRatio || 1, 1280 / r.width, 1.5);
+    canvas.width = Math.round(r.width * k); canvas.height = Math.round(r.height * k);
+    drawn = -1; draw(current);
   }
 
   /* Dessine l'image la plus proche déjà chargée, cadrée comme object-fit: cover */
+  var drawn = -1;
   function draw(i) {
     current = i;
+    if (i === drawn && frames[i]) return; // même image : rien à refaire
     var img = frames[i];
     if (!img) { for (var d = 1; d < COUNT && !img; d++) img = frames[i - d] || frames[i + d]; }
     if (!img || !canvas.width) return;
-    var cw = canvas.width, ch = canvas.height, s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-    var w = img.naturalWidth * s, h = img.naturalHeight * s;
+    var iw = img.width, ih = img.height;
+    var cw = canvas.width, ch = canvas.height, s = Math.max(cw / iw, ch / ih);
+    var w = iw * s, h = ih * s;
     // sur téléphone (format portrait), on cadre un peu à droite pour garder le börek et la main
     var fx = cw < ch ? 0.58 : 0.5;
     ctx.drawImage(img, (cw - w) * fx, (ch - h) / 2, w, h);
+    if (frames[i] === img) drawn = i;
   }
 
   function load(i) {
     return new Promise(function (ok) {
       var im = new Image(); im.decoding = 'async';
-      im.onload = function () { frames[i] = im; loaded++; ok(); };
+      im.onload = function () {
+        // Décodage à l'avance (hors du fil principal quand c'est possible) : plus de saccade au défilement
+        var done = function (bmp) { frames[i] = bmp || im; loaded++; ok(); };
+        if (window.createImageBitmap) createImageBitmap(im).then(done, function () { done(); });
+        else if (im.decode) im.decode().then(function () { done(); }, function () { done(); });
+        else done();
+      };
       im.onerror = ok; im.src = src(i);
     });
   }
