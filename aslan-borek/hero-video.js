@@ -54,3 +54,27 @@
   }, { threshold: 0.25, rootMargin: '200px 0px' });
   vids.forEach(function (v) { io.observe(v); });
 })();
+
+/* iPhone en mode Économie d'énergie : la lecture automatique est bloquée.
+   Le premier contact avec l'écran compte comme une action du visiteur : on en profite pour lancer
+   les vidéos visibles. Un appui sur une vidéo la lance ou la met en pause. */
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var hero = document.querySelector('.hero-video');
+  function visible(v) { var r = v.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }
+  function kick() {
+    if (hero && hero.paused && !hero.ended && visible(hero)) hero.play().catch(function () {});
+    document.querySelectorAll('.auto-video').forEach(function (v) {
+      if (!v.src) v.src = v.dataset.src;
+      if (v.paused && visible(v)) v.play().catch(function () {});
+    });
+  }
+  ['touchend', 'click', 'keydown'].forEach(function (t) { addEventListener(t, kick, { passive: true }); });
+  addEventListener('scroll', function () { clearTimeout(window.__kick); window.__kick = setTimeout(kick, 120); }, { passive: true });
+  document.querySelectorAll('.auto-video').forEach(function (v) {
+    v.addEventListener('click', function () {
+      if (!v.src) v.src = v.dataset.src;
+      if (v.paused) v.play().catch(function () {}); else v.pause();
+    });
+  });
+})();
