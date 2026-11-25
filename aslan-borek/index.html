@@ -159,8 +159,6 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 .dish b{transition:color .25s}
 .dish:hover b{color:var(--red)}
 .hero-photo img{will-change:transform}
-.hero-gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1s ease;touch-action:pan-y}
-.hero-gl.on{opacity:1}
 .truck-photos{overflow:hidden}
 .truck-photos img{will-change:transform}
 .split-line{overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
@@ -169,6 +167,32 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 .anim .hero h1,.anim .hero-text p,.anim .hero .actions,.anim .stamp,.anim .hero-photo{visibility:hidden}
 .anim .reveal{visibility:hidden}
 
+
+
+/* ---------- Haut de page : la vidéo avance avec le défilement ---------- */
+.hero.scrub{position:relative;display:block;height:calc(100svh - 64px);min-height:520px;overflow:hidden;color:var(--white);background:var(--tile-deep)}
+.hero.scrub .hero-photo{position:absolute;inset:0;aspect-ratio:auto;order:0;z-index:0}
+.hero.scrub .hero-photo img,.scrub-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none}
+.scrub-canvas{opacity:0;transition:opacity .4s}
+.scrub-canvas.on{opacity:1}
+.scrub-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,29,56,.88) 0%,rgba(18,29,56,.55) 40%,rgba(18,29,56,0) 72%)}
+.hero.scrub .hero-text{position:relative;z-index:2;height:100%;justify-content:center;padding:0 clamp(24px,6vw,96px);max-width:760px}
+.hero.scrub .stamp{left:auto;right:clamp(16px,4vw,48px);bottom:clamp(16px,4vw,40px);z-index:3}
+.hero.scrub .hero-photo::after{z-index:1}
+.scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;font-size:.85rem;font-weight:600;color:var(--flour);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.85}
+.scroll-hint span{width:2px;height:34px;background:linear-gradient(var(--gold),transparent);animation:hint 1.8s ease-in-out infinite}
+@keyframes hint{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (prefers-reduced-motion:reduce){.scroll-hint{display:none}}
+@media (max-width:860px){
+  .scrub-shade{background:linear-gradient(0deg,rgba(18,29,56,.94) 0%,rgba(18,29,56,.6) 38%,rgba(18,29,56,0) 62%)}
+  .hero.scrub .hero-text{justify-content:flex-end;padding:0 20px 108px}
+  .hero.scrub h1{font-size:clamp(2.6rem,13vw,3.4rem)}
+  .hero.scrub .hero-text p{font-size:1rem;margin-top:12px;max-width:34ch}
+  .hero.scrub .actions{margin-top:18px;gap:10px}
+  .hero.scrub .btn{padding:11px 18px;font-size:.95rem}
+  .hero.scrub .stamp{top:16px;bottom:auto;right:16px}
+  .scroll-hint{display:none}
+}
 
 /* ---------- Effets visuels ---------- */
 .progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--gold);transform-origin:left;transform:scaleX(0);z-index:30;pointer-events:none}
@@ -220,7 +244,7 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 </header>
 
 <main>
-  <section class="hero tiles" style="padding:0">
+  <section class="hero scrub" style="padding:0">
     <div class="hero-text">
       <h1><span class="o"><span>Aslan</span></span><span class="o"><span>Börek</span></span></h1>
       <p>Des börek turcs roulés à la main et cuits devant vous, sur les marchés et à vos événements.</p>
@@ -230,9 +254,12 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
       </div>
     </div>
     <div class="hero-photo">
-      <img src="img/borek-roquette.jpg" alt="Börek à la viande doré, garni de roquette fraîche, servi sur une ardoise" width="1024" height="682" fetchpriority="high">
+      <img src="img/scrub/f001.webp" alt="Une main gantée dépose de la roquette fraîche sur un börek doré, servi sur une ardoise" width="1280" height="720" fetchpriority="high">
+      <canvas class="scrub-canvas" aria-hidden="true"></canvas>
+      <div class="scrub-shade"></div>
       <span class="stamp">Pâte à pain faite maison</span>
     </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span>Faites défiler</div>
   </section>
 
   <div class="marquee" role="presentation"><div class="marquee-track"><span>Fromage</span><span>Pomme de terre</span><span>Chèvre-miel</span><span>Épinards</span><span>Poireaux</span><span>Champignons</span><span>Bœuf</span><span>Lahmacun</span><span>Poulet</span><span>Poulet-courgette</span><span aria-hidden="true">Fromage</span><span aria-hidden="true">Pomme de terre</span><span aria-hidden="true">Chèvre-miel</span><span aria-hidden="true">Épinards</span><span aria-hidden="true">Poireaux</span><span aria-hidden="true">Champignons</span><span aria-hidden="true">Bœuf</span><span aria-hidden="true">Lahmacun</span><span aria-hidden="true">Poulet</span><span aria-hidden="true">Poulet-courgette</span></div></div>
@@ -356,7 +383,7 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 <script src="vendor/SplitText.min.js" defer></script>
 <script src="vendor/lenis.min.js" defer></script>
 <script src="animations.js" defer></script>
-<script src="hero-gl.js" defer></script>
+<script src="scrub.js" defer></script>
 <script src="effects.js" defer></script>
 </body>
 </html>

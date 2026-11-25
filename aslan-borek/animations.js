@@ -44,17 +44,11 @@
     var intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
     intro
       .fromTo('.hero-photo', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.2, ease: 'expo.inOut' }, 0)
-      .fromTo('.hero-photo img', { scale: 1.25 }, { scale: 1.05, duration: 2.2, ease: 'power2.out' }, 0)
-      .from(title.chars, { yPercent: 110, duration: 0.9, stagger: 0.045 }, 0.25)
+            .from(title.chars, { yPercent: 110, duration: 0.9, stagger: 0.045 }, 0.25)
       .from('.hero-text p', { y: 24, autoAlpha: 0, duration: 0.8 }, 0.8)
       .from('.hero .actions .btn', { y: 20, autoAlpha: 0, duration: 0.7, stagger: 0.1 }, 0.95)
       .from('.stamp', { scale: 0.4, rotate: -25, autoAlpha: 0, duration: 0.7, ease: 'back.out(2.2)' }, 1.3);
 
-    /* La photo du haut glisse plus lentement que la page (parallaxe) */
-    gsap.to('.hero-photo img', {
-      yPercent: 12, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
     /* Le motif de faïence bouge légèrement au défilement */
     gsap.utils.toArray('.tiles').forEach(function (el) {
       gsap.fromTo(el, { backgroundPositionY: '0px' }, {
