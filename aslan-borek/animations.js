@@ -118,7 +118,7 @@
     });
 
     /* ---------- 7. Événements : la photo s'ouvre comme le volet du camion ---------- */
-    gsap.fromTo('.events img', { clipPath: 'inset(0 0 100% 0)' }, {
+    gsap.fromTo('.events img:not(.truck-cut)', { clipPath: 'inset(0 0 100% 0)' }, {
       clipPath: 'inset(0 0 0% 0)', duration: 1.3, ease: 'expo.inOut',
       scrollTrigger: { trigger: '.events', start: 'top 70%' }
     });

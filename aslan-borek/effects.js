@@ -28,6 +28,23 @@
     scrollTrigger: { trigger: '.events', start: 'top 95%', end: 'top 25%', scrub: 0.4 }
   });
 
+  /* Börek détouré : il flotte doucement et tourne pendant qu'on défile dans la carte */
+  if (document.querySelector('.float-borek')) {
+    gsap.to('.float-borek', { y: -14, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    gsap.from('.float-borek', { autoAlpha: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.menu', start: 'top 80%' } });
+    gsap.fromTo('.float-borek', { rotate: -12, xPercent: 12 }, {
+      rotate: 10, xPercent: -6, ease: 'none',
+      scrollTrigger: { trigger: '.menu', start: 'top 85%', end: 'bottom 30%', scrub: 0.6 }
+    });
+  }
+  /* Camion détouré : il « arrive » vers nous au défilement */
+  if (document.querySelector('.truck-cut')) {
+    gsap.fromTo('.truck-cut', { scale: 0.45, y: 60, autoAlpha: 0 }, {
+      scale: 1, y: 0, autoAlpha: 1, ease: 'power2.out',
+      scrollTrigger: { trigger: '.events', start: 'top 80%', end: 'center 55%', scrub: 0.6 }
+    });
+  }
+
   if (!fine) return; // la suite est réservée à la souris
 
   document.documentElement.classList.add('has-cursor');
