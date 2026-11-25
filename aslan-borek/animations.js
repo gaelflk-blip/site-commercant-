@@ -91,7 +91,7 @@
     var steps = gsap.timeline({ scrollTrigger: { trigger: '.steps', start: 'top 78%' } });
     gsap.utils.toArray('.step').forEach(function (step, i) {
       steps
-        .fromTo(step.querySelector('img'), { clipPath: 'inset(100% 0 0 0)', scale: 1.15 },
+        .fromTo(step.querySelector('img, video'), { clipPath: 'inset(100% 0 0 0)', scale: 1.15 },
           { clipPath: 'inset(0% 0 0 0)', scale: 1, duration: 1.1, ease: 'expo.out' }, i * 0.22)
         .from(step.querySelectorAll('figcaption, p'), { y: 18, autoAlpha: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out' }, i * 0.22 + 0.35);
     });
@@ -108,11 +108,11 @@
 
     /* ---------- 6. Le camion : photos à vitesses différentes ---------- */
     gsap.set('.truck-photos.reveal', { visibility: 'visible' });
-    gsap.from('.truck-photos img', {
+    gsap.from('.truck-photos > *', {
       y: 60, autoAlpha: 0, duration: 1, stagger: 0.15, ease: 'power3.out',
       scrollTrigger: { trigger: '.truck-photos', start: 'top 80%' }
     });
-    gsap.to('.truck-photos img:first-child', {
+    gsap.to('.truck-photos > :first-child', {
       yPercent: -8, ease: 'none',
       scrollTrigger: { trigger: '.truck', start: 'top bottom', end: 'bottom top', scrub: true }
     });

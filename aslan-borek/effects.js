@@ -36,7 +36,7 @@
   var lx = gsap.quickTo(label, 'x', { duration: 0.35, ease: 'power3' }), ly = gsap.quickTo(label, 'y', { duration: 0.35, ease: 'power3' });
 
   /* Aperçu photo qui suit la souris sur certains plats de la carte */
-  var preview = document.querySelector('.preview'), pimg = preview.querySelector('img');
+  var preview = document.querySelector('.preview'), pimg = preview.querySelector('img'), pvid = preview.querySelector('video');
   var px = gsap.quickTo(preview, 'x', { duration: 0.5, ease: 'power3' }), py = gsap.quickTo(preview, 'y', { duration: 0.5, ease: 'power3' });
 
   addEventListener('pointermove', function (e) {
@@ -48,7 +48,7 @@
     el.addEventListener('pointerenter', function () { gsap.to(cursor, { scale: 2.2, duration: 0.25 }); });
     el.addEventListener('pointerleave', function () { gsap.to(cursor, { scale: 1, duration: 0.25 }); });
   });
-  document.querySelectorAll('.step img, .truck-photos img, .events img').forEach(function (el) {
+  document.querySelectorAll('.step img, .step video, .truck-photos img, .truck-photos video, .events img').forEach(function (el) {
     el.addEventListener('pointerenter', function () { gsap.to(label, { autoAlpha: 1, duration: 0.2 }); gsap.to(cursor, { scale: 0, duration: 0.2 }); });
     el.addEventListener('pointerleave', function () { gsap.to(label, { autoAlpha: 0, duration: 0.2 }); gsap.to(cursor, { scale: 1, duration: 0.2 }); });
   });
@@ -56,6 +56,8 @@
   document.querySelectorAll('.dish[data-img]').forEach(function (d) {
     d.addEventListener('pointerenter', function () {
       pimg.src = d.dataset.img;
+      if (d.dataset.video) { pvid.src = d.dataset.video; pvid.hidden = false; pvid.play().catch(function () {}); }
+      else { pvid.pause(); pvid.hidden = true; }
       gsap.to(preview, { autoAlpha: 1, scale: 1, rotate: -3, duration: 0.35, ease: 'back.out(1.7)' });
     });
     d.addEventListener('pointerleave', function () { gsap.to(preview, { autoAlpha: 0, scale: 0.6, rotate: 0, duration: 0.25 }); });
@@ -73,7 +75,7 @@
 
   /* Photos des étapes : légère inclinaison 3D qui suit la souris */
   document.querySelectorAll('.step figure').forEach(function (f) {
-    var img = f.querySelector('img');
+    var img = f.querySelector('img, video');
     f.style.perspective = '900px';
     f.addEventListener('pointermove', function (e) {
       var r = f.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;

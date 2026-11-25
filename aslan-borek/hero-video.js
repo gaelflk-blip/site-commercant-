@@ -37,3 +37,20 @@
     if (e[0].isIntersecting) { if (!v.ended) tryPlay(); } else v.pause();
   }, { threshold: 0 }).observe(hero);
 })();
+
+/* Vidéos des étapes et du camion : elles se lancent quand on arrive dessus (en boucle, sans son)
+   et se mettent en pause quand elles sortent de l'écran. Rien ne se charge avant d'en avoir besoin. */
+(function () {
+  var vids = document.querySelectorAll('.auto-video');
+  if (!vids.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) {
+        if (!v.src) { v.src = v.dataset.src; }
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      } else if (!v.paused) v.pause();
+    });
+  }, { threshold: 0.25, rootMargin: '200px 0px' });
+  vids.forEach(function (v) { io.observe(v); });
+})();
