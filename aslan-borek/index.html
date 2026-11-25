@@ -170,6 +170,9 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 
 
 /* ---------- Haut de page : la vidéo avance avec le défilement ---------- */
+.scrub-wrap{position:relative}
+.anim .scrub-wrap{height:calc(240svh - 64px)}
+.anim .hero.scrub{position:sticky;top:64px}
 .hero.scrub{position:relative;display:block;height:calc(100svh - 64px);min-height:520px;overflow:hidden;color:var(--white);background:var(--tile-deep)}
 .hero.scrub .hero-photo{position:absolute;inset:0;aspect-ratio:auto;order:0;z-index:0}
 .hero.scrub .hero-photo img,.scrub-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none}
@@ -245,6 +248,7 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
 </header>
 
 <main>
+  <div class="scrub-wrap">
   <section class="hero scrub" style="padding:0">
     <div class="hero-text">
       <h1><span class="o"><span>Aslan</span></span><span class="o"><span>Börek</span></span></h1>
@@ -262,6 +266,7 @@ html:not(.anim) .marquee-track span[aria-hidden]{display:none}
     </div>
     <div class="scroll-hint" aria-hidden="true"><span></span>Faites défiler</div>
   </section>
+  </div>
 
   <div class="marquee" role="presentation"><div class="marquee-track"><span>Fromage</span><span>Pomme de terre</span><span>Chèvre-miel</span><span>Épinards</span><span>Poireaux</span><span>Champignons</span><span>Bœuf</span><span>Lahmacun</span><span>Poulet</span><span>Poulet-courgette</span><span aria-hidden="true">Fromage</span><span aria-hidden="true">Pomme de terre</span><span aria-hidden="true">Chèvre-miel</span><span aria-hidden="true">Épinards</span><span aria-hidden="true">Poireaux</span><span aria-hidden="true">Champignons</span><span aria-hidden="true">Bœuf</span><span aria-hidden="true">Lahmacun</span><span aria-hidden="true">Poulet</span><span aria-hidden="true">Poulet-courgette</span></div></div>
 

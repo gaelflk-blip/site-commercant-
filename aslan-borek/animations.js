@@ -17,7 +17,10 @@
 
   /* ---------- Défilement fluide (Lenis) synchronisé avec ScrollTrigger ---------- */
   var lenis = null;
-  if (window.Lenis) {
+  /* Sur iPhone et Android : défilement natif (plus fiable), et on ignore les changements de hauteur de la barre d'adresse */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  var touch = matchMedia('(pointer: coarse)').matches;
+  if (window.Lenis && !touch) {
     lenis = new Lenis({ duration: 1.1, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });

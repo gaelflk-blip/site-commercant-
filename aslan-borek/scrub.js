@@ -11,7 +11,11 @@
   var src = function (i) { return 'img/scrub/f' + String(i + 1).padStart(3, '0') + '.webp'; };
   var current = 0;
 
+  var lastW = 0;
   function size() {
+    var r0 = canvas.getBoundingClientRect();
+    if (Math.abs(r0.width - lastW) < 2 && canvas.width) return; // la barre d'adresse de l'iPhone ne doit pas tout redessiner
+    lastW = r0.width;
     var dpr = Math.min(window.devicePixelRatio || 1, 1.5), r = canvas.getBoundingClientRect();
     canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
     draw(current);
@@ -71,12 +75,14 @@
   }
   gsap.registerPlugin(ScrollTrigger);
 
-  /* La section reste à l'écran pendant que la vidéo avance */
-  var state = { f: 0 };
+  /* La section reste collée en haut (position: sticky, géré par le navigateur, très stable sur iPhone)
+     pendant que la vidéo avance selon la position dans le bloc .scrub-wrap */
+  var state = { f: 0 }, queued = false;
+  function paint() { queued = false; draw(Math.round(state.f)); }
   var tl = gsap.timeline({
     scrollTrigger: {
-      trigger: hero, start: 'top 64px', end: '+=140%', pin: true, scrub: 0.4, anticipatePin: 1,
-      onUpdate: function () { draw(Math.round(state.f)); }
+      trigger: '.scrub-wrap', start: 'top 64px', end: 'bottom bottom', scrub: 0.3,
+      onUpdate: function () { if (!queued) { queued = true; requestAnimationFrame(paint); } }
     }
   });
   tl.to(state, { f: COUNT - 1, ease: 'none', duration: 1 }, 0)
