@@ -40,17 +40,45 @@
   var mm = gsap.matchMedia();
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { mm.add('(prefers-reduced-motion: no-preference)', function () {
 
-    /* ---------- 1. Ouverture : le moment fort ---------- */
-    var title = new SplitText('.hero h1 .o > span', { type: 'chars', mask: 'chars' });
-    gsap.set(['.hero h1', '.hero-text p', '.hero .actions', '.stamp', '.hero-photo'], { visibility: 'visible' });
-
+    /* ---------- 1. Ouverture : l'affiche ---------- */
+    var title = new SplitText('.affiche-title span', { type: 'chars', mask: 'chars' });
+    gsap.set(['.affiche-title', '.affiche-borek', '.affiche-lion', '.affiche-badge', '.affiche .star', '.affiche-tag', '.affiche-cta', '.hero-photo'], { visibility: 'visible' });
     var intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
     intro
-      .fromTo('.hero-photo', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.2, ease: 'expo.inOut', clearProps: 'clipPath' }, 0)
-            .from(title.chars, { yPercent: 110, duration: 0.9, stagger: 0.045 }, 0.25)
-      .from('.hero-text p', { y: 24, autoAlpha: 0, duration: 0.8 }, 0.8)
-      .from('.hero .actions .btn', { y: 20, autoAlpha: 0, duration: 0.7, stagger: 0.1 }, 0.95)
-      .from('.stamp', { scale: 0.4, rotate: -25, autoAlpha: 0, duration: 0.7, ease: 'back.out(2.2)' }, 1.3);
+      .from(title.chars, { yPercent: 110, duration: 0.9, stagger: 0.04 }, 0.1)
+      .from('.affiche-borek', { yPercent: 40, scale: 0.55, rotate: -18, autoAlpha: 0, duration: 1.3, ease: 'back.out(1.3)' }, 0.45)
+      .from('.affiche .star', { scale: 0, rotate: -120, duration: 0.7, stagger: 0.07, ease: 'back.out(2.2)' }, 0.9)
+      .from('.affiche-lion', { scale: 0, rotate: -40, duration: 0.7, ease: 'back.out(2.2)' }, 1.05)
+      .from('.affiche-badge', { scale: 0, duration: 0.6, ease: 'back.out(2.2)' }, 1.15)
+      .from(['.affiche-tag', '.affiche-cta .btn'], { y: 20, autoAlpha: 0, duration: 0.6, stagger: 0.08 }, 1.0);
+
+    /* Le börek flotte, puis tourne et grossit un peu quand on quitte l'affiche ; les deux mots s'écartent */
+    gsap.to('.affiche-borek', { y: -12, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.8 });
+    gsap.utils.toArray('.affiche .star').forEach(function (st, i) {
+      gsap.to(st, { y: i % 2 ? 10 : -10, rotate: i % 2 ? 20 : -20, duration: 2 + i * 0.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    });
+    var leave = gsap.timeline({ scrollTrigger: { trigger: '.affiche', start: 'top top', end: 'bottom top', scrub: 0.5 } });
+    leave.to('.affiche-borek', { rotate: 12, scale: 1.12, yPercent: 25, ease: 'none' }, 0)
+         .to('.affiche-title .l1', { xPercent: -10, ease: 'none' }, 0)
+         .to('.affiche-title .l2', { xPercent: 10, ease: 'none' }, 0);
+
+    /* Souris : léger relief entre le börek, les étoiles et le lion */
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      var aff = document.querySelector('.affiche');
+      var bx = gsap.quickTo('.affiche-borek', 'x', { duration: 0.8, ease: 'power3' });
+      var lx = gsap.quickTo('.affiche-lion', 'x', { duration: 0.9, ease: 'power3' }), ly = gsap.quickTo('.affiche-lion', 'y', { duration: 0.9, ease: 'power3' });
+      aff.addEventListener('pointermove', function (e) {
+        var r = aff.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        bx(x * 40); lx(x * -18); ly(y * -14);
+      });
+      aff.addEventListener('pointerleave', function () { bx(0); lx(0); ly(0); });
+    }
+
+    /* La carte vidéo s'ouvre comme un volet quand on arrive dessus */
+    gsap.fromTo('.hero-photo', { clipPath: 'inset(12% 6% 12% 6% round 32px)' }, {
+      clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
+      scrollTrigger: { trigger: '.hero.scrub', start: 'top 95%', end: 'top 30%', scrub: 0.4 }
+    });
 
     /* Le motif de faïence bouge légèrement au défilement */
     gsap.utils.toArray('.tiles').forEach(function (el) {

@@ -22,15 +22,9 @@
     });
   });
 
-  /* Événements : la section part d'une carte arrondie et s'ouvre en plein écran */
-  gsap.fromTo('.events', { clipPath: 'inset(6% 5% 6% 5% round 28px)' }, {
-    clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none',
-    scrollTrigger: { trigger: '.events', start: 'top 95%', end: 'top 25%', scrub: 0.4 }
-  });
-
   /* Börek détouré : il flotte doucement et tourne pendant qu'on défile dans la carte */
   if (document.querySelector('.float-borek')) {
-    gsap.to('.float-borek', { y: -14, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    gsap.to('.float-borek', { y: -10, rotate: 4, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
     gsap.from('.float-borek', { autoAlpha: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.menu', start: 'top 80%' } });
     gsap.fromTo('.float-borek', { rotate: -12, xPercent: 12 }, {
       rotate: 10, xPercent: -6, ease: 'none',
