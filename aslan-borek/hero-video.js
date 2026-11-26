@@ -1,80 +1,79 @@
-/* Haut de page : la vidéo se joue toute seule, normalement (lecteur natif du téléphone, donc fluide).
-   Elle se joue une fois et s'arrête sur la dernière image (la roquette posée sur le börek).
-   Le défilement ne la fait jamais reculer : elle se met juste en pause hors de l'écran et reprend où elle était.
-   Téléphone : version recadrée en vertical, plus légère. */
+/* Vidéos du site : lecture native (fluide sur iPhone), chargées seulement quand on en a besoin.
+   - Grande vidéo (roquette) : se joue une fois, s'arrête sur la dernière image, ne recule jamais.
+   - Étapes et camion : en boucle, une seule à la fois, uniquement quand elles sont bien visibles.
+   - Animations réduites ou lecture automatique bloquée (mode Économie d'énergie) : on appuie pour lancer.
+   - Barre « Appeler » sur téléphone : apparaît seulement après l'affiche, pour ne pas cacher ses boutons. */
 (function () {
-  var hero = document.querySelector('.hero.scrub'), v = hero && hero.querySelector('.hero-video');
-  if (!v) return;
-  var portrait = matchMedia('(orientation: portrait)').matches;
-  v.src = portrait ? v.dataset.srcM : v.dataset.src;
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var portrait = matchMedia('(orientation: portrait)').matches;
+  var hasIO = 'IntersectionObserver' in window;
 
+  /* ---------- Barre d'appel mobile ---------- */
+  var bar = document.querySelector('.mobile-call'), aff = document.querySelector('.affiche');
+  if (bar) {
+    if (aff && hasIO) new IntersectionObserver(function (e) { bar.classList.toggle('show', !e[0].isIntersecting); }).observe(aff);
+    else bar.classList.add('show');
+  }
+
+  function srcOf(v) { return v.classList.contains('hero-video') ? (portrait ? v.dataset.srcM : v.dataset.src) : v.dataset.src; }
+  function load(v) { if (!v.getAttribute('src')) v.src = srcOf(v); }
+  function tryPlay(v, onBlocked) {
+    load(v);
+    var p = v.play();
+    if (p && p.catch) p.catch(function (e) { if (e && e.name === 'NotAllowedError' && onBlocked) onBlocked(); });
+  }
+
+  /* ---------- Grande vidéo ---------- */
+  var heroBox = document.querySelector('.hero.scrub'), hero = heroBox && heroBox.querySelector('.hero-video');
   var btn = null;
   function showButton(label) {
     if (!btn) {
       btn = document.createElement('button');
       btn.className = 'play-btn'; btn.type = 'button';
-      btn.addEventListener('click', function () { v.currentTime = 0; tryPlay(); }); // seul le bouton « Revoir » remet au début
-      hero.appendChild(btn);
+      btn.addEventListener('click', function () { hero.currentTime = 0; tryPlay(hero); });
+      heroBox.appendChild(btn);
     }
     btn.textContent = label; btn.hidden = false;
   }
-  function tryPlay() {
-    var p = v.play();
-    // Seul un vrai refus de lecture automatique affiche le bouton (pas une pause pendant le chargement)
-    if (p && p.catch) p.catch(function (e) { if (e && e.name === 'NotAllowedError') showButton('▶ Voir la vidéo'); });
+  if (hero) {
+    hero.addEventListener('playing', function () { hero.classList.add('on'); if (btn) btn.hidden = true; });
+    if (reduced) {
+      showButton('▶ Voir la vidéo');
+      hero.addEventListener('ended', function () { showButton('↺ Revoir'); });
+    } else if (hasIO) {
+      // on prépare la vidéo un peu avant qu'elle arrive à l'écran, on la lance quand elle est visible
+      new IntersectionObserver(function (e) { if (e[0].isIntersecting) load(hero); }, { rootMargin: '300px 0px' }).observe(heroBox);
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { if (!hero.ended) tryPlay(hero, function () { showButton('▶ Voir la vidéo'); }); }
+        else hero.pause();
+      }, { threshold: 0.3 }).observe(heroBox);
+    }
   }
-  v.addEventListener('playing', function () { v.classList.add('on'); if (btn) btn.hidden = true; });
 
-  if (reduced) {
-    showButton('▶ Voir la vidéo');
-    v.addEventListener('ended', function () { showButton('↺ Revoir'); });
-    return;
-  }
-
-  // Pause quand le haut du site n'est plus visible (économise la batterie), reprise au même endroit
-  new IntersectionObserver(function (e) {
-    if (e[0].isIntersecting) { if (!v.ended) tryPlay(); } else v.pause();
-  }, { threshold: 0 }).observe(hero);
-})();
-
-/* Vidéos des étapes et du camion : elles se lancent quand on arrive dessus (en boucle, sans son)
-   et se mettent en pause quand elles sortent de l'écran. Rien ne se charge avant d'en avoir besoin. */
-(function () {
-  var vids = document.querySelectorAll('.auto-video');
-  if (!vids.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      var v = e.target;
-      if (e.isIntersecting) {
-        if (!v.src) { v.src = v.dataset.src; }
-        var p = v.play(); if (p && p.catch) p.catch(function () {});
-      } else if (!v.paused) v.pause();
-    });
-  }, { threshold: 0.25, rootMargin: '200px 0px' });
-  vids.forEach(function (v) { io.observe(v); });
-})();
-
-/* iPhone en mode Économie d'énergie : la lecture automatique est bloquée.
-   Le premier contact avec l'écran compte comme une action du visiteur : on en profite pour lancer
-   les vidéos visibles. Un appui sur une vidéo la lance ou la met en pause. */
-(function () {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var hero = document.querySelector('.hero-video');
-  function visible(v) { var r = v.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }
-  function kick() {
-    if (hero && hero.paused && !hero.ended && visible(hero)) hero.play().catch(function () {});
-    document.querySelectorAll('.auto-video').forEach(function (v) {
-      if (!v.src) v.src = v.dataset.src;
-      if (v.paused && visible(v)) v.play().catch(function () {});
-    });
-  }
-  ['touchend', 'click', 'keydown'].forEach(function (t) { addEventListener(t, kick, { passive: true }); });
-  addEventListener('scroll', function () { clearTimeout(window.__kick); window.__kick = setTimeout(kick, 120); }, { passive: true });
-  document.querySelectorAll('.auto-video').forEach(function (v) {
-    v.addEventListener('click', function () {
-      if (!v.src) v.src = v.dataset.src;
-      if (v.paused) v.play().catch(function () {}); else v.pause();
-    });
+  /* ---------- Étapes et camion ---------- */
+  var vids = Array.prototype.slice.call(document.querySelectorAll('.auto-video'));
+  vids.forEach(function (v) {
+    // un appui lance ou met en pause (utile en animations réduites et en mode Économie d'énergie)
+    v.addEventListener('click', function () { if (v.paused) tryPlay(v); else v.pause(); });
   });
+  if (!reduced && hasIO && vids.length) {
+    var ratios = new Map();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { ratios.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+      // une seule vidéo à la fois : la plus visible
+      var best = null, max = 0.5;
+      ratios.forEach(function (r, v) { if (r >= max) { max = r; best = v; } });
+      vids.forEach(function (v) { if (v === best) tryPlay(v); else if (!v.paused) v.pause(); });
+    }, { threshold: [0, 0.5, 0.75, 1] });
+    vids.forEach(function (v) { io.observe(v); });
+
+    // lecture automatique refusée : le premier contact avec l'écran relance la vidéo visible
+    var kick = function () {
+      if (hero && hero.paused && !hero.ended && heroBox.getBoundingClientRect().top < innerHeight && heroBox.getBoundingClientRect().bottom > 0) tryPlay(hero);
+      var best = null, max = 0.5;
+      ratios.forEach(function (r, v) { if (r >= max) { max = r; best = v; } });
+      if (best && best.paused) tryPlay(best);
+    };
+    ['touchend', 'click', 'keydown'].forEach(function (t) { addEventListener(t, kick, { passive: true }); });
+  }
 })();

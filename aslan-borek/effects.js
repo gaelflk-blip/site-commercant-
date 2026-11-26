@@ -24,7 +24,7 @@
 
   /* Börek détouré : il flotte doucement et tourne pendant qu'on défile dans la carte */
   if (document.querySelector('.float-borek')) {
-    gsap.to('.float-borek', { y: -10, rotate: 4, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    gsap.to('.float-borek', { y: -10, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
     gsap.from('.float-borek', { autoAlpha: 0, scale: 0.8, duration: 0.8, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.menu', start: 'top 80%' } });
     gsap.fromTo('.float-borek', { rotate: -12, xPercent: 12 }, {
       rotate: 10, xPercent: -6, ease: 'none',
@@ -59,11 +59,7 @@
     el.addEventListener('pointerenter', function () { gsap.to(cursor, { scale: 2.2, duration: 0.25 }); });
     el.addEventListener('pointerleave', function () { gsap.to(cursor, { scale: 1, duration: 0.25 }); });
   });
-  document.querySelectorAll('.step img, .step video, .truck-photos img, .truck-photos video, .events img').forEach(function (el) {
-    el.addEventListener('pointerenter', function () { gsap.to(label, { autoAlpha: 1, duration: 0.2 }); gsap.to(cursor, { scale: 0, duration: 0.2 }); });
-    el.addEventListener('pointerleave', function () { gsap.to(label, { autoAlpha: 0, duration: 0.2 }); gsap.to(cursor, { scale: 1, duration: 0.2 }); });
-  });
-
+  document.querySelectorAll('.dish[data-img]').forEach(function (d) { var pre = new Image(); pre.src = d.dataset.img; });
   document.querySelectorAll('.dish[data-img]').forEach(function (d) {
     d.addEventListener('pointerenter', function () {
       pimg.src = d.dataset.img;
@@ -90,8 +86,8 @@
     f.style.perspective = '900px';
     f.addEventListener('pointermove', function (e) {
       var r = f.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-      gsap.to(img, { rotateY: x * 8, rotateX: -y * 8, scale: 1.03, duration: 0.5, ease: 'power3' });
+      gsap.to(img, { rotateY: x * 8, rotateX: -y * 8, duration: 0.5, ease: 'power3', overwrite: 'auto' });
     });
-    f.addEventListener('pointerleave', function () { gsap.to(img, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.6, ease: 'power3' }); });
+    f.addEventListener('pointerleave', function () { gsap.to(img, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3', overwrite: 'auto' }); });
   });
 })();

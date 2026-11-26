@@ -49,7 +49,7 @@
   var lastW = 0;
   function resize() {
     var r = box.getBoundingClientRect(); if (Math.abs(r.width - lastW) < 2 && canvas.width) return; lastW = r.width;
-    var k = Math.min(devicePixelRatio || 1, 1.5);
+    var k = matchMedia('(pointer: coarse)').matches ? 1 : Math.min(devicePixelRatio || 1, 1.5);
     canvas.width = Math.round(r.width * k); canvas.height = Math.round(r.height * k);
     gl.viewport(0, 0, canvas.width, canvas.height); gl.uniform2f(U.res, canvas.width, canvas.height);
   }
@@ -69,21 +69,28 @@
       });
       box.addEventListener('pointerleave', function () { target = [0, 0]; });
     }
-    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(box);
-    var t0 = performance.now();
-    (function frame(now) {
+    // si iOS perd le contexte WebGL (appli en arrière-plan), on remontre simplement la photo
+    canvas.addEventListener('webglcontextlost', function () { canvas.classList.remove('on'); visible = false; });
+    var running = false, drawn = [9, 9];
+    function frame() {
+      if (!visible) { running = false; return; }
       requestAnimationFrame(frame);
-      if (!visible) return;
       if (!fine) {
-        // téléphone : le relief suit la position dans la page + un léger balancement
+        // téléphone : le relief suit seulement la position dans la page (pas de balancement permanent)
         var r = box.getBoundingClientRect(), p = (r.top + r.height / 2) / innerHeight - 0.5;
-        var t = (now - t0) / 1000;
-        target = [Math.sin(t * 0.8) * 0.008, p * -0.02];
+        target = [0, p * -0.02];
       }
       cur[0] += (target[0] - cur[0]) * 0.08; cur[1] += (target[1] - cur[1]) * 0.08;
+      // on ne redessine que si l'image a vraiment bougé
+      if (Math.abs(cur[0] - drawn[0]) < 1e-5 && Math.abs(cur[1] - drawn[1]) < 1e-5) return;
+      drawn = [cur[0], cur[1]];
       gl.uniform2f(U.off, cur[0], cur[1]);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      canvas.classList.add('on');
-    })(t0);
+    }
+    new IntersectionObserver(function (e) {
+      visible = e[0].isIntersecting;
+      if (visible && !running) { running = true; requestAnimationFrame(frame); }
+    }).observe(box);
+    gl.uniform2f(U.off, 0, 0); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); canvas.classList.add('on');
   }).catch(function () {});
 })();
