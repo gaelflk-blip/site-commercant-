@@ -3,12 +3,11 @@
    Le choix est gardé dans le navigateur (localStorage, pas un cookie) et modifiable via « Gérer les cookies ».
    Sans publication ni marché renseignés ci-dessous : aucune bannière, le site reste sans cookie. */
 (function () {
-  /* ---------- À REMPLIR ---------- */
-  // Liens de publications Instagram de @buse.coffee (3 conseillés), ex. 'https://www.instagram.com/p/XXXXXXXX/'
-  var INSTAGRAM_POSTS = [];
-  // Marchés où trouver le camion : { nom: 'Marché de …', quand: 'Samedi 8 h – 13 h', adresse: 'Place …, 1050 Ixelles' }
-  var MARCHES = [];
-  /* -------------------------------- */
+  /* Les publications Instagram et les marchés se remplissent dans l'admin (contenu.json, lu par contenu.js). */
+  (window.busePret || Promise.resolve(null)).then(function (c) {
+  c = c || {};
+  var INSTAGRAM_POSTS = (c.instagram || []).map(function (x) { return x && (x.lien || x); }).filter(function (u) { return typeof u === 'string' && /^https:\/\/(www\.)?instagram\.com\//.test(u); });
+  var MARCHES = (c.marches || []).filter(function (m) { return m && m.nom; });
 
   var KEY = 'buse-consent';
   function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
@@ -86,4 +85,5 @@
   if (!hasEmbeds) return;
   if (get() === 'yes') loadEmbeds();
   else if (get() === null) openBanner();
+  });
 })();

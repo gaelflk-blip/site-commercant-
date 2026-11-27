@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Büse</title>
+<link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
+<style>
+/* Decap est prévu pour ordinateur : on l'adapte au téléphone */
+[class*="EditorContainer"],[class*="ToolbarContainer"]{min-width:0!important}
+@media (max-width:760px){
+  [class*="ToolbarContainer"]{flex-wrap:wrap;height:auto!important;padding:8px!important;gap:6px}
+  [class*="ToolbarContainer"] *{font-size:14px}
+  [class*="ControlPaneContainer"],[class*="EditorControlPane"]{padding:12px!important;max-width:100%!important}
+  [class*="SettingsWrapper"]{display:none!important}
+  input,textarea,select{font-size:16px!important} /* évite le zoom automatique sur iPhone */
+}
+</style>
+</head>
+<body>
+<script src="decap/decap-cms.js?v=1"></script>
+</body>
+</html>

@@ -77,6 +77,14 @@ Installés après une revue de sécurité (novembre 2026), seulement les parties
 
 **En cas de conflit, ce fichier gagne sur les skills** : garder `overflow-x:hidden` avant `clip` (iOS < 16), les petits titres en capitales espacées sont autorisés quand ils viennent de la marque (ex. menu papier de Büse), et jamais de fait inventé.
 
+## Admin pour les commerçants (essai sur Büse)
+
+- Le contenu qui change souvent est dans `buse/contenu.json` (saison hiver/normale, carte et prix, options, annonce du moment, marchés, liens Instagram). `contenu.js` l'applique à la page au chargement (`fetch` en `no-cache`) ; la carte écrite dans le HTML sert de secours si le fichier ne charge pas. `consent.js` lit marchés et Instagram depuis ce fichier.
+- Admin : **Decap CMS 3.x** copié depuis npm dans `buse/admin/decap/`, réglages dans `buse/admin/config.yml` (en français, `noindex`, CSS ajoutée pour téléphone). Il ne modifie que `contenu.json`, jamais le design.
+- Test sur l'ordinateur : `decap-server` (npm) lancé à la racine du dépôt + `local_backend: true` → `http://localhost:8765/buse/admin/`.
+- **En ligne, la connexion ne marche pas sur GitHub Pages** : il faut l'hébergement Netlify (connexion GitHub gérée par Netlify) ou un petit service d'authentification. À régler au moment de l'hébergement. Pages CMS (pagescms.org) est une alternative qui lirait le même `contenu.json`, mais son site était bloqué par le réseau de la session.
+- Pour Aslan, même principe à reproduire si Gaël valide.
+
 ## SEO et mise en ligne
 
 - **Aperçu GitHub Pages = `noindex`** (balise `robots` dans le `<head>`), pour que l'adresse github.io ne concurrence pas le futur domaine.

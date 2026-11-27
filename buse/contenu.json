@@ -1,0 +1,164 @@
+{
+  "saison": "hiver",
+  "annonce": {
+    "afficher": false,
+    "texte": ""
+  },
+  "carte": {
+    "coffee": [
+      {
+        "nom": "Espresso",
+        "prix": 2.5,
+        "detail": ""
+      },
+      {
+        "nom": "Americano",
+        "prix": 3.0,
+        "detail": ""
+      },
+      {
+        "nom": "Cortado",
+        "prix": 3.5,
+        "detail": ""
+      },
+      {
+        "nom": "Cappuccino",
+        "prix": 4.0,
+        "detail": ""
+      },
+      {
+        "nom": "Flat white",
+        "prix": 4.5,
+        "detail": ""
+      },
+      {
+        "nom": "Latte",
+        "prix": 4.5,
+        "detail": ""
+      }
+    ],
+    "sans_cafe": [
+      {
+        "nom": "Matcha latte",
+        "prix": 5.0,
+        "detail": ""
+      },
+      {
+        "nom": "Ube latte",
+        "prix": 5.5,
+        "detail": ""
+      },
+      {
+        "nom": "Chai latte",
+        "prix": 5.0,
+        "detail": ""
+      },
+      {
+        "nom": "Hot chocolate",
+        "prix": 4.5,
+        "detail": ""
+      },
+      {
+        "nom": "Clear and sunny",
+        "prix": 5.0,
+        "detail": "Pamplemousse, citron, pêche, tonic"
+      },
+      {
+        "nom": "Good mood",
+        "prix": 5.0,
+        "detail": "Thé noir, pêche blanche"
+      }
+    ],
+    "specials": [
+      {
+        "nom": "Bonbon latte",
+        "prix": 6.0,
+        "detail": "Espresso, lait concentré sucré"
+      },
+      {
+        "nom": "Honey tahini latte",
+        "prix": 6.0,
+        "detail": "Espresso, lait, tahini, miel, cannelle"
+      }
+    ],
+    "hiver": [
+      {
+        "nom": "Hot chocolate",
+        "prix": 4.5,
+        "detail": ""
+      },
+      {
+        "nom": "Salted hot chocolate",
+        "prix": 5.0,
+        "detail": ""
+      },
+      {
+        "nom": "Cinnamon roll latte",
+        "prix": 5.0,
+        "detail": ""
+      },
+      {
+        "nom": "Chai latte coco",
+        "prix": 5.5,
+        "detail": ""
+      },
+      {
+        "nom": "Salted caramel latte",
+        "prix": 5.5,
+        "detail": ""
+      },
+      {
+        "nom": "Salted honey cinnamon latte",
+        "prix": 6.0,
+        "detail": ""
+      },
+      {
+        "nom": "Honey tahini latte",
+        "prix": 6.0,
+        "detail": ""
+      },
+      {
+        "nom": "Peanut latte",
+        "prix": 6.0,
+        "detail": ""
+      },
+      {
+        "nom": "Bonbon latte",
+        "prix": 6.0,
+        "detail": ""
+      },
+      {
+        "nom": "Matcha coco vanille",
+        "prix": 6.0,
+        "detail": ""
+      },
+      {
+        "nom": "Ube coco latte",
+        "prix": 6.0,
+        "detail": ""
+      }
+    ],
+    "options": [
+      {
+        "nom": "Lait végétal",
+        "prix": 0.5,
+        "detail": "Avoine, amande, coco",
+        "en_hiver": true
+      },
+      {
+        "nom": "Sirop",
+        "prix": 0.5,
+        "detail": "Vanille, caramel, noisette",
+        "en_hiver": false
+      },
+      {
+        "nom": "Extra shot",
+        "prix": 0.5,
+        "detail": "",
+        "en_hiver": true
+      }
+    ]
+  },
+  "marches": [],
+  "instagram": []
+}
