@@ -8,10 +8,9 @@
 <meta property="og:title" content="Aslan Börek, spécialités turques">
 <meta property="og:description" content="Börek faits à la main, cuits devant vous sur les marchés et à vos événements.">
 <meta property="og:image" content="img/borek-roquette.jpg">
-<link rel="stylesheet" href="fonts/fonts.css?v=15">
+<link rel="stylesheet" href="fonts/fonts.css?v=16">
 <link rel="preload" href="fonts/bricolagegrotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/borek-detoure.webp?v=15" as="image" fetchpriority="high">
-<link rel="stylesheet" href="vendor/lenis.css?v=15">
+<link rel="stylesheet" href="vendor/lenis.css?v=16">
 <script>
 document.documentElement.classList.add('js');
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -276,13 +275,11 @@ main{overflow-x:hidden;overflow-x:clip}
 /* Haut de page « affiche » */
 .affiche{position:relative;margin:12px;border-radius:32px;background:radial-gradient(120% 90% at 50% 45%,#E0223F 0%,var(--red) 55%,#A90C26 100%);color:var(--flour);min-height:calc(100svh - 64px - 24px);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,4vw,48px)}
 .affiche-stage{position:relative;flex:1;display:grid;place-items:center;margin-block:clamp(40px,7vw,72px) 16px}
-.affiche-title{font-family:var(--display);font-weight:800;text-transform:uppercase;line-height:.8;letter-spacing:-.045em;font-size:clamp(4.6rem,20.5vw,21rem);color:var(--flour);display:flex;flex-direction:column;align-items:center;text-align:center;margin:0}
+.affiche-title{font-family:var(--display);font-weight:800;text-transform:uppercase;line-height:.92;letter-spacing:-.045em;font-size:clamp(4.6rem,20.5vw,21rem);color:var(--flour);display:flex;flex-direction:column;align-items:center;text-align:center;margin:0}
 .affiche-title span{display:block}
 .affiche-title .l1{position:relative;z-index:1}
 .affiche-title .l2{position:relative;z-index:3}
 .affiche-title{position:relative}
-.affiche-borek-wrap{position:absolute;left:50%;top:50%;width:min(42vw,600px);transform:translate(-50%,-50%);z-index:4;pointer-events:none}
-.affiche-borek{display:block;width:100%;height:auto;transform:rotate(-8deg);filter:drop-shadow(0 40px 40px rgba(70,0,12,.5))}
 .affiche-lion{position:absolute;z-index:3;top:clamp(14px,2.6vw,30px);left:clamp(14px,2.6vw,30px);width:clamp(76px,10vw,140px);height:auto;transform:rotate(-9deg);filter:drop-shadow(0 10px 14px rgba(70,0,12,.35))}
 .affiche-badge{position:absolute;z-index:3;top:clamp(14px,2.6vw,30px);right:clamp(14px,2.6vw,30px);width:clamp(92px,11vw,150px)}
 .affiche-badge svg{display:block;width:100%;height:auto;overflow:visible}
@@ -307,7 +304,6 @@ main{overflow-x:hidden;overflow-x:clip}
   .affiche{margin:8px;border-radius:24px;min-height:calc(100svh - 64px - 16px);padding-bottom:96px}
   .affiche-stage{min-height:50svh;margin-block:70px 8px}
   .affiche-title{font-size:30vw}
-  .affiche-borek-wrap{width:70vw}
   .affiche-lion{width:70px}
   .affiche-badge{width:84px}
   .affiche-cta .btn{padding:12px 20px}
@@ -397,7 +393,7 @@ footer a{display:inline-block;padding-block:4px}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#"><img src="img/logo.webp?v=15" alt="Aslan Börek, spécialités turques" width="260" height="120" style="height:44px;width:auto"></a>
+    <a class="brand" href="#"><img src="img/logo.webp?v=16" alt="Aslan Börek, spécialités turques" width="260" height="120" style="height:44px;width:auto"></a>
     <nav aria-label="Navigation principale">
       <a href="#carte">La carte</a>
       <a href="#camion">Où est le camion</a>
@@ -410,7 +406,7 @@ footer a{display:inline-block;padding-block:4px}
 
 <main>
   <section class="affiche" aria-label="Aslan Börek, spécialités turques">
-    <img class="affiche-lion" src="img/lion-sticker.webp?v=15" alt="" width="502" height="479">
+    <img class="affiche-lion" src="img/lion-sticker.webp?v=16" alt="" width="502" height="479">
     <div class="affiche-badge" aria-hidden="true">
       <svg viewBox="0 0 200 200"><defs><path id="cercle" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
         <circle cx="100" cy="100" r="98"/><text><textPath href="#cercle">PÂTE À PAIN FAITE MAISON ★ FAIT MAIN ★ </textPath></text>
@@ -419,7 +415,6 @@ footer a{display:inline-block;padding-block:4px}
     <svg class="star s1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18.1 5.3 22l1.7-7.6L1.2 9.3l7.7-.7z"/></svg><svg class="star s2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18.1 5.3 22l1.7-7.6L1.2 9.3l7.7-.7z"/></svg><svg class="star s3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18.1 5.3 22l1.7-7.6L1.2 9.3l7.7-.7z"/></svg><svg class="star s4" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18.1 5.3 22l1.7-7.6L1.2 9.3l7.7-.7z"/></svg><svg class="star s5" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l3.1 7.1 7.7.7-5.8 5.1 1.7 7.6L12 18.1 5.3 22l1.7-7.6L1.2 9.3l7.7-.7z"/></svg>
     <div class="affiche-stage">
       <h1 class="affiche-title"><span class="l1">Aslan</span><span class="l2">Börek</span></h1>
-      <div class="affiche-borek-wrap"><img class="affiche-borek" src="img/borek-detoure.webp?v=15" alt="Börek aux épinards et à la féta, doré et plié" width="900" height="312" fetchpriority="high"></div>
     </div>
     <div class="affiche-bottom">
       <p class="affiche-tag">Pâte à pain étalée à la main, garnie et dorée sur la plaque, sous vos yeux. Sur les marchés et à vos événements.</p>
@@ -430,10 +425,10 @@ footer a{display:inline-block;padding-block:4px}
   <section class="hero scrub" style="padding:0">
     <div class="hero-photo">
       <picture>
-        <source media="(orientation: portrait)" srcset="img/hero-poster-m.jpg?v=15">
-        <img src="img/hero-poster.jpg?v=15" alt="Une main gantée dépose de la roquette fraîche sur un börek doré, servi sur une ardoise" width="1280" height="720" loading="lazy">
+        <source media="(orientation: portrait)" srcset="img/hero-poster-m.jpg?v=16">
+        <img src="img/hero-poster.jpg?v=16" alt="Une main gantée dépose de la roquette fraîche sur un börek doré, servi sur une ardoise" width="1280" height="720" loading="lazy">
       </picture>
-      <video class="hero-video" muted playsinline preload="metadata" aria-hidden="true" data-src="video/hero.mp4?v=15" data-src-m="video/hero-m.mp4?v=15"></video>
+      <video class="hero-video" muted playsinline preload="metadata" aria-hidden="true" data-src="video/hero.mp4?v=16" data-src-m="video/hero-m.mp4?v=16"></video>
       <div class="scrub-shade"></div>
       <p class="video-cap">En direct de la plaque.</p>
     </div>
@@ -448,17 +443,17 @@ footer a{display:inline-block;padding-block:4px}
       <p class="lead reveal">Chaque börek part d'une boule de pâte à pain, étalée à la main sur la planche. On garnit avec des produits frais et locaux, puis on cuit sur la plaque avec une noisette de beurre salé.</p>
       <div class="steps">
         <div class="step reveal"><figure>
-          <video class="auto-video" muted playsinline loop preload="none" poster="img/etape-1-poster.jpg?v=15" data-src="video/etape-1.mp4?v=15" width="576" height="720" role="img" aria-label="Le chef dépose épinards frais et féta sur une pâte fine"></video>
+          <video class="auto-video" muted playsinline loop preload="none" poster="img/etape-1-poster.jpg?v=16" data-src="video/etape-1.mp4?v=16" width="576" height="720" role="img" aria-label="Le chef dépose épinards frais et féta sur une pâte fine"></video>
           <figcaption>On étale.</figcaption></figure>
           <p>Fine comme une feuille, à la main sur la planche.</p>
         </div>
         <div class="step reveal"><figure>
-          <video class="auto-video" muted playsinline loop preload="none" poster="img/etape-2-poster.jpg?v=15" data-src="video/etape-2.mp4?v=15" width="576" height="720" role="img" aria-label="Une main gantée parsème du fromage sur des champignons"></video>
+          <video class="auto-video" muted playsinline loop preload="none" poster="img/etape-2-poster.jpg?v=16" data-src="video/etape-2.mp4?v=16" width="576" height="720" role="img" aria-label="Une main gantée parsème du fromage sur des champignons"></video>
           <figcaption>On garnit.</figcaption></figure>
           <p>Féta, oignons, persil, épices et votre garniture.</p>
         </div>
         <div class="step reveal"><figure>
-          <video class="auto-video" muted playsinline loop preload="none" poster="img/etape-3-poster.jpg?v=15" data-src="video/etape-3.mp4?v=15" width="576" height="720" role="img" aria-label="Börek aux épinards plié et doré, servi sur une ardoise"></video>
+          <video class="auto-video" muted playsinline loop preload="none" poster="img/etape-3-poster.jpg?v=16" data-src="video/etape-3.mp4?v=16" width="576" height="720" role="img" aria-label="Börek aux épinards plié et doré, servi sur une ardoise"></video>
           <figcaption>On dore.</figcaption></figure>
           <p>Sur la plaque, au beurre salé. Plié, servi chaud.</p>
         </div>
@@ -468,7 +463,7 @@ footer a{display:inline-block;padding-block:4px}
 
   <section id="carte" class="menu">
     <div class="wrap">
-      <img class="float-borek float-lion" src="img/lion-sticker.webp?v=15" alt="" width="502" height="479" loading="lazy">
+      <img class="float-borek float-lion" src="img/lion-sticker.webp?v=16" alt="" width="502" height="479" loading="lazy">
       <p class="lion-bubble" aria-hidden="true">Moi&nbsp;? Chèvre-miel, toujours.</p>
       <p class="kicker" aria-hidden="true">★ La carte</p>
       <h2 class="reveal">Onze façons de craquer.</h2>
@@ -486,7 +481,7 @@ footer a{display:inline-block;padding-block:4px}
         <div>
           <h3>Viandes</h3>
           <div class="dish reveal"><b>Bœuf</b><span class="tag viande">Viande</span><small>Bœuf, féta, oignons, persil, épices et beurre salé</small></div>
-          <div class="dish reveal" data-img="img/lahmacun-poster.jpg?v=15" data-video="video/lahmacun.mp4?v=15"><b>Lahmacun</b><span class="tag viande">Viande</span><small>Bœuf, ail, tomate, poivrons rouges, oignons, persil et épices</small></div>
+          <div class="dish reveal" data-img="img/lahmacun-poster.jpg?v=16" data-video="video/lahmacun.mp4?v=16"><b>Lahmacun</b><span class="tag viande">Viande</span><small>Bœuf, ail, tomate, poivrons rouges, oignons, persil et épices</small></div>
           <div class="dish reveal"><b>Poulet</b><span class="tag viande">Viande</span><small>Poulet, féta, oignons, persil, épices et beurre salé</small></div>
           <div class="dish reveal"><b>Poulet-courgette</b><span class="tag viande">Viande</span><small>Poulet, courgette, féta, oignons, persil, épices et beurre salé</small></div>
           <div class="dish reveal"><b>Mix 3 ingrédients</b><small>Au choix dans la carte, avec oignons, persil, fromage et épices</small></div>
@@ -498,8 +493,8 @@ footer a{display:inline-block;padding-block:4px}
   </section>
 
   <section class="relief" aria-label="Garni à la minute">
-    <div class="relief-media" data-img="img/borek-roquette.jpg?v=15" data-depth="img/roquette-profondeur.jpg?v=15">
-      <img src="img/borek-roquette.jpg?v=15" alt="Une main gantée laisse tomber de la roquette fraîche sur un börek doré" width="1024" height="682" loading="lazy">
+    <div class="relief-media" data-img="img/borek-roquette.jpg?v=16" data-depth="img/roquette-profondeur.jpg?v=16">
+      <img src="img/borek-roquette.jpg?v=16" alt="Une main gantée laisse tomber de la roquette fraîche sur un börek doré" width="1024" height="682" loading="lazy">
       <div class="relief-shade"></div>
     </div>
     <div class="wrap relief-text">
@@ -511,9 +506,9 @@ footer a{display:inline-block;padding-block:4px}
   <section id="camion" class="tiles">
     <div class="wrap truck">
       <div class="truck-photos reveal">
-        <video class="auto-video" muted playsinline loop preload="none" poster="img/camion-poster.jpg?v=15" data-src="video/camion.mp4?v=15" width="720" height="1280" role="img" aria-label="Le camion Type H blanc d'Aslan Börek vu de face, ses phares s'allument"></video>
-        <img src="img/camion-marche.webp?v=15" alt="Le camion ouvert sur un marché avec tables et chaises" loading="lazy" width="700" height="933">
-        <img src="img/camion-profil.webp?v=15" alt="Le comptoir éclairé du camion" loading="lazy" width="800" height="600">
+        <video class="auto-video" muted playsinline loop preload="none" poster="img/camion-poster.jpg?v=16" data-src="video/camion.mp4?v=16" width="720" height="1280" role="img" aria-label="Le camion Type H blanc d'Aslan Börek vu de face, ses phares s'allument"></video>
+        <img src="img/camion-marche.webp?v=16" alt="Le camion ouvert sur un marché avec tables et chaises" loading="lazy" width="700" height="933">
+        <img src="img/camion-profil.webp?v=16" alt="Le comptoir éclairé du camion" loading="lazy" width="800" height="600">
       </div>
       <div>
         <p class="kicker" aria-hidden="true">★ Le camion</p>
@@ -546,8 +541,8 @@ footer a{display:inline-block;padding-block:4px}
         <p class="contact-links">Ou appelez directement <a href="tel:+33767444974">Arnaud</a> · <a href="tel:+33767587809">Damla</a> · <a href="mailto:aslan.borek.bxl@gmail.com?subject=Demande%20traiteur">par e-mail</a></p>
       </div>
       <div>
-      <img src="img/comptoir-evenement.webp?v=15" alt="Le camion installé dans une salle pour un repas d'entreprise, tables dressées au fond" loading="lazy" width="1000" height="750">
-        <img class="truck-cut" src="img/camion-detoure.webp?v=15" alt="" width="766" height="767" loading="lazy">
+      <img src="img/comptoir-evenement.webp?v=16" alt="Le camion installé dans une salle pour un repas d'entreprise, tables dressées au fond" loading="lazy" width="1000" height="750">
+        <img class="truck-cut" src="img/camion-detoure.webp?v=16" alt="" width="766" height="767" loading="lazy">
       </div>
     </div>
   </section>
@@ -582,14 +577,14 @@ footer a{display:inline-block;padding-block:4px}
 </footer>
 
 <a class="mobile-call" href="tel:+33767444974">Appeler Aslan Börek</a>
-<script src="vendor/gsap.min.js?v=15" defer></script>
-<script src="vendor/ScrollTrigger.min.js?v=15" defer></script>
-<script src="vendor/SplitText.min.js?v=15" defer></script>
-<script src="vendor/lenis.min.js?v=15" defer></script>
-<script src="animations.js?v=15" defer></script>
-<script src="hero-video.js?v=15" defer></script>
-<script src="effects.js?v=15" defer></script>
-<script src="consent.js?v=15" defer></script>
-<script src="depth3d.js?v=15" defer></script>
+<script src="vendor/gsap.min.js?v=16" defer></script>
+<script src="vendor/ScrollTrigger.min.js?v=16" defer></script>
+<script src="vendor/SplitText.min.js?v=16" defer></script>
+<script src="vendor/lenis.min.js?v=16" defer></script>
+<script src="animations.js?v=16" defer></script>
+<script src="hero-video.js?v=16" defer></script>
+<script src="effects.js?v=16" defer></script>
+<script src="consent.js?v=16" defer></script>
+<script src="depth3d.js?v=16" defer></script>
 </body>
 </html>

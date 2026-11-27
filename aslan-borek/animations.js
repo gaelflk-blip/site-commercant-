@@ -42,23 +42,17 @@
 
     /* ---------- 1. Ouverture : l'affiche ---------- */
     var title = new SplitText('.affiche-title span', { type: 'chars', mask: 'chars' });
-    var wrap = document.querySelector('.affiche-borek-wrap');
-    gsap.set(wrap, { x: 0, y: 0, xPercent: -50, yPercent: -50 });
-    gsap.set(['.affiche-title', '.affiche-borek', '.affiche-lion', '.affiche-badge', '.affiche .star', '.affiche-tag', '.affiche-cta', '.hero-photo'], { visibility: 'visible' });
+    gsap.set(['.affiche-title', '.affiche-lion', '.affiche-badge', '.affiche .star', '.affiche-tag', '.affiche-cta', '.hero-photo'], { visibility: 'visible' });
     var intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
     intro
       .from(title.chars, { yPercent: 110, rotate: 6, duration: 0.9, stagger: { each: 0.035, from: 'center' }, onComplete: function () { title.revert(); } }, 0.1)
-      .from('.affiche-borek', { y: -90, scale: 1.25, autoAlpha: 0, duration: 0.55, ease: 'power3.in' }, 0.45)
-      .to('.affiche-borek', { scaleY: 0.9, scaleX: 1.05, duration: 0.12, ease: 'power2.out' }, 1.0)
-      .to('.affiche-borek', { scaleY: 1, scaleX: 1, duration: 0.5, ease: 'elastic.out(1, 0.45)' }, 1.12)
       .from('.affiche .star', { scale: 0, rotate: -120, duration: 0.7, stagger: 0.07, ease: 'back.out(2.2)' }, 0.9)
       .from('.affiche-lion', { scale: 0, rotate: -40, duration: 0.7, ease: 'back.out(2.2)' }, 1.05)
       .from('.affiche-badge', { scale: 0, rotate: -180, duration: 0.8, ease: 'back.out(1.6)' }, 1.15)
       .from(['.affiche-tag', '.affiche-cta .btn'], { y: 20, autoAlpha: 0, duration: 0.6, stagger: 0.08 }, 1.0);
 
-    /* Le börek flotte, puis tourne et grossit un peu quand on quitte l'affiche ; les deux mots s'écartent */
+    /* Les étoiles flottent ; quand on quitte l'affiche, les deux mots s'écartent */
     var amb = gsap.timeline({ delay: 1.8 });
-    amb.to('.affiche-borek', { y: '-=12', duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1 }, 0);
     gsap.utils.toArray('.affiche .star').forEach(function (st, i) {
       amb.to(st, { y: i % 2 ? 10 : -10, rotate: i % 2 ? 20 : -20, duration: 2 + i * 0.4, ease: 'sine.inOut', yoyo: true, repeat: -1 }, 0);
     });
@@ -66,18 +60,17 @@
     ScrollTrigger.create({ trigger: affEl, start: 'top bottom', end: 'bottom top',
       onToggle: function (st) { amb.paused(!st.isActive); affEl.classList.toggle('is-off', !st.isActive); } });
     var leave = gsap.timeline({ scrollTrigger: { trigger: '.affiche', start: 'top top', end: 'bottom top', scrub: 0.5 } });
-    leave.to(wrap, { rotate: 10, scale: 1.12, yPercent: -25, ease: 'none' }, 0)
-         .to('.affiche-title .l1', { xPercent: -10, ease: 'none' }, 0)
+    leave.to('.affiche-title .l1', { xPercent: -10, ease: 'none' }, 0)
          .to('.affiche-title .l2', { xPercent: 10, ease: 'none' }, 0);
 
     /* Souris : léger relief entre le börek, les étoiles et le lion */
     if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
       var aff = document.querySelector('.affiche');
-      var bx = gsap.quickTo('.affiche-borek', 'x', { duration: 0.8, ease: 'power3' });
+      var bx = gsap.quickTo('.affiche-title', 'x', { duration: 1, ease: 'power3' });
       var lx = gsap.quickTo('.affiche-lion', 'x', { duration: 0.9, ease: 'power3' }), ly = gsap.quickTo('.affiche-lion', 'y', { duration: 0.9, ease: 'power3' });
       aff.addEventListener('pointermove', function (e) {
         var r = aff.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-        bx(x * 40); lx(x * -18); ly(y * -14);
+        bx(x * 14); lx(x * -18); ly(y * -14);
       });
       aff.addEventListener('pointerleave', function () { bx(0); lx(0); ly(0); });
     }
