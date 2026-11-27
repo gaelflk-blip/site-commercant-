@@ -87,7 +87,7 @@ Installés après une revue de sécurité (novembre 2026), seulement les parties
 ## Légal (Belgique)
 
 - Pages `mentions-legales.html` (Code de droit économique art. III.74 et XII.6 : nom, BCE, TVA, adresse, autorisation ambulante, AFSCA) et `confidentialite.html` (RGPD, Autorité de protection des données).
-- **Par défaut aucun cookie** : polices locales, pas de statistiques. Si on intègre Instagram ou Google Maps, bannière de consentement (Accepter / Refuser de même taille), rien chargé avant l'accord (voir `aslan-borek/consent.js`).
+- **Par défaut aucun cookie** : polices locales, pas de statistiques. Si on intègre Instagram ou Google Maps, bannière de consentement (Accepter / Refuser de même taille), rien chargé avant l'accord (voir `aslan-borek/consent.js` et `buse/consent.js` : listes `INSTAGRAM_POSTS` et `MARCHES` à remplir, bannière seulement si elles ne sont pas vides).
 - Allergènes : mention sous la carte (règlement UE 1169/2011).
 - Les formulaires de devis préparent un e-mail, un message WhatsApp ou Instagram, et ne stockent rien.
 - Rappeler à Gaël de faire valider par son comptable, et la facturation électronique Peppol obligatoire en Belgique depuis 2026.
