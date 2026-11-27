@@ -19,7 +19,7 @@ Mets-le à jour quand une décision change.
 | `aslan-borek/` (food truck börek, Citroën Type H) | Rouge du logo, doré, bleu « carreaux de ciment », crème. Police Bricolage Grotesque + Figtree. Lion du logo en sticker | Affiche rouge avec « ASLAN BÖREK » géant, badge doré qui tourne, étoiles. Sections en cartes de couleur arrondies. Vidéos Gemini des étapes. Page `traiteur/` avec formulaire de devis |
 | `buse/` (café ambulant, Piaggio Ape noir) | Noir, blanc, rouge, rose des gobelets. Lilita One (titres), Space Mono (style menu papier), Figtree | Les 3 grains du logo tombent dans le « U » qui sourit, puis le sourire se remplit de café. Carte façon menu papier imprimé. Boissons signature en cartes de couleur. Plan technique rouge du camion. Section événements privés |
 
-**Büse, carte de saison** : `<html data-saison="hiver">` n'affiche que la carte d'hiver (classes `.hiver` / `.ete` sur la carte papier, les cartes boissons et le Sirop). Pour revenir à la carte normale : retirer l'attribut et remettre dans le JSON-LD les sections Coffee, No beans, Specials et le Sirop (voir le commit « carte d'hiver » v10 dans l'historique).
+**Büse, carte de saison** : `<html data-saison="hiver">` n'affiche que la carte d'hiver (classes `.hiver` / `.ete` sur la carte papier, les cartes boissons et le Sirop). Pour revenir à la carte normale : retirer l'attribut et remettre dans le JSON-LD les sections No beans, Specials et le Sirop (Coffee reste toute l'année) (voir le commit « carte d'hiver » v10 dans l'historique).
 
 Infos encore manquantes : voir les champs `[entre crochets]` surlignés en jaune dans les `mentions-legales.html`, et les commentaires `À COMPLÉTER` dans le code.
 
