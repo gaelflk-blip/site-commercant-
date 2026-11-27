@@ -85,6 +85,12 @@
         gsap.to(b, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out', overwrite: true });
       } });
       gsap.set('.reveal:not(h2)', { y: 30 });
+      // au clavier : un élément qui reçoit le focus s'affiche tout de suite, même s'il n'est pas encore apparu
+      document.addEventListener('focusin', function (e) {
+        if (!e.target.matches || !e.target.matches(':focus-visible')) return; // seulement au clavier
+        var r = e.target.closest && e.target.closest('.reveal');
+        if (r && +getComputedStyle(r).opacity < 1) { gsap.killTweensOf(r); gsap.set(r, { opacity: 1, y: 0 }); }
+      });
 
       /* ---------- 4. La carte : la feuille se pose, les lignes s'écrivent ---------- */
       gsap.from('.sig .cup', { y: 40, rotation: -20, opacity: 0, duration: 0.9, stagger: 0.12, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.signatures', start: 'top 80%' } });
@@ -93,11 +99,35 @@
       gsap.from('.stamp-iced', { scale: 2.4, opacity: 0, rotation: 40, duration: 0.5, ease: 'power4.in', scrollTrigger: { trigger: '.paper', start: 'top 60%' } });
 
       /* ---------- 5. Le camion : le plan glisse, les photos suivent ---------- */
-      gsap.fromTo('.plan', { x: 80, rotation: 4 }, { x: 0, rotation: 0, ease: 'none', scrollTrigger: { trigger: '.truck', start: 'top bottom', end: 'center center', scrub: 0.6 } });
+      gsap.fromTo('.plan', { x: 40, rotation: 3 }, { x: 0, rotation: 0, ease: 'none', scrollTrigger: { trigger: '.truck', start: 'top bottom', end: 'center center', scrub: 0.6 } });
     });
 
     if (!document.querySelector('.anim')) return;
   });
+
+  /* Menu : la section en cours est mise en évidence */
+  var links = [].slice.call(document.querySelectorAll('.top nav a[href^="#"]'));
+  if ('IntersectionObserver' in window && links.length) {
+    var map = {};
+    links.forEach(function (a) { var sec = document.querySelector(a.getAttribute('href')); if (sec) map[sec.id] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var a = map[en.target.id]; if (!a) return;
+        if (en.isIntersecting) { links.forEach(function (l) { l.removeAttribute('aria-current'); }); a.setAttribute('aria-current', 'true'); }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(map).forEach(function (id) { io.observe(document.getElementById(id)); });
+  }
+
+  /* Cartes boissons sur téléphone : points indicateurs */
+  var row = document.querySelector('.signatures'), dots = document.querySelectorAll('.sig-dots span');
+  if (row && dots.length) {
+    row.addEventListener('scroll', function () {
+      var cards = row.querySelectorAll('.sig'), mid = row.scrollLeft + row.clientWidth / 2, best = 0, dist = 1e9;
+      cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = i; } });
+      dots.forEach(function (d, i) { d.classList.toggle('on', i === best); });
+    }, { passive: true });
+  }
 
   /* Galerie : glisser à la souris sur ordinateur */
   var strip = document.querySelector('.strip');

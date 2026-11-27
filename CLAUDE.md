@@ -53,6 +53,8 @@ Infos encore manquantes : voir les champs `[entre crochets]` surlignés en jaune
 - **WebGL** (photo en relief) : ne redessiner que si quelque chose bouge, résolution 1× sur téléphone, gérer `webglcontextlost`.
 - La barre fixe « Appeler » sur mobile ne doit pas cacher les boutons du haut : l'afficher seulement après le haut de page.
 - Une image en niveaux de gris sans canal alpha ne marche pas comme masque CSS : la convertir en PNG avec transparence.
+- Contenu qui apparaît au défilement (`.reveal` à opacité 0) : l'afficher tout de suite s'il reçoit le focus **au clavier** (`:focus-visible`), pas au clic souris (sinon l'élément bouge pendant le clic et le clic est perdu).
+- Formulaires : vérifier les valeurs (date à venir, minimum, e-mail ou téléphone), message sous chaque champ avec `aria-invalid` et `aria-describedby`, confirmation en `role="status"`. Ouvrir un lien externe pendant le clic, pas après une promesse (Safari bloque).
 
 ## Médias et IA
 
@@ -71,6 +73,14 @@ Installés après une revue de sécurité (novembre 2026), seulement les parties
 - Refusé : `agent-browser` (Vercel) — il veut remplacer Playwright et pré-autorise toutes ses commandes.
 
 **En cas de conflit, ce fichier gagne sur les skills** : garder `overflow-x:hidden` avant `clip` (iOS < 16), les petits titres en capitales espacées sont autorisés quand ils viennent de la marque (ex. menu papier de Büse), et jamais de fait inventé.
+
+## SEO et mise en ligne
+
+- **Aperçu GitHub Pages = `noindex`** (balise `robots` dans le `<head>`), pour que l'adresse github.io ne concurrence pas le futur domaine.
+- Chaque page publique a : titre et description avec la ville (« à Bruxelles »), `canonical`, Open Graph et Twitter en URL absolues (image de partage 1200×630 `img/partage.jpg`), icônes (`favicon-48/96.png`, `apple-touch-icon.png`), JSON-LD (Büse : `CafeOrCoffeeShop` sans adresse, `areaServed` Bruxelles, carte et prix). Le h1 image a un vrai `alt`.
+- Ne jamais mettre de téléphone, e-mail, horaires, adresse ou avis dans le JSON-LD tant qu'ils ne sont pas confirmés.
+- **Checklist le jour du lancement sur le domaine** : retirer le `noindex` ; remplacer `https://gaelflk-blip.github.io/site-commercant-/<site>/` par le domaine partout (canonical, og:url, og:image, JSON-LD) ; ajouter `robots.txt` et `sitemap.xml` à la racine du domaine (pages légales exclues) ; mettre à jour l'hébergeur dans `mentions-legales.html` et `confidentialite.html` ; créer la fiche Google Business Profile (entreprise de zone de service) avec les mêmes nom, téléphone et infos que le site et Instagram.
+- Pas de version NL pour l'instant ; si un jour : `/nl/` + hreflang `fr`/`nl`/`x-default` (jamais `be`, c'est le biélorusse).
 
 ## Légal (Belgique)
 
