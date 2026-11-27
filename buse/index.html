@@ -9,9 +9,9 @@
 <meta property="og:description" content="Espresso, lattes et boissons sans café, servis depuis notre petit camion noir.">
 <meta property="og:image" content="img/latte-art.webp">
 <meta name="theme-color" content="#111111">
-<link rel="stylesheet" href="fonts/fonts.css?v=1">
+<link rel="stylesheet" href="fonts/fonts.css?v=4">
 <link rel="preload" href="fonts/lilitaone-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/logo-blanc-sans-grains.webp?v=1" as="image" fetchpriority="high">
+<link rel="preload" href="img/logo-blanc-sans-grains.webp?v=4" as="image" fetchpriority="high">
 <script>
 document.documentElement.classList.add('js');
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -96,7 +96,7 @@ section[id]{scroll-margin-top:80px}
 .ticker{background:var(--red);color:var(--white);overflow:hidden;padding:16px 0;transform:rotate(-1.5deg);width:104%;margin:-18px -2% 0;position:relative;z-index:3}
 .ticker-track{display:flex;width:max-content;align-items:center}
 .ticker span{font-family:var(--display);font-size:clamp(1.4rem,3vw,2.2rem);text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:28px;padding-inline:14px}
-.ticker span::after{content:"";width:20px;height:28px;flex:none;background:url("img/logo-blanc-grain.webp?v=1") center/contain no-repeat;transform:rotate(18deg)}
+.ticker span::after{content:"";width:20px;height:28px;flex:none;background:url("img/logo-blanc-grain.webp?v=4") center/contain no-repeat;transform:rotate(18deg)}
 
 /* Sections */
 section{padding:clamp(72px,10vw,128px) 0}
@@ -121,6 +121,38 @@ h2{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,6.5vw,5rem)
 .paper-foot b{color:var(--red)}
 .stamp-iced{position:absolute;top:clamp(20px,4vw,44px);right:clamp(20px,4vw,44px);width:clamp(92px,11vw,130px);aspect-ratio:1;border-radius:50%;border:3px solid var(--red);display:grid;place-items:center;text-align:center;font-weight:700;font-size:.78rem;line-height:1.25;transform:rotate(12deg);text-transform:uppercase}
 @media (max-width:860px){.cols,.extras{grid-template-columns:1fr}.stamp-iced{position:static;margin:0 0 20px auto}}
+
+
+/* Le sourire du U se remplit de café */
+.coffee{position:absolute;left:35.4%;top:74.9%;width:18.6%;height:15.5%;-webkit-mask:url("img/sourire-masque.png?v=4") center/100% 100% no-repeat;mask:url("img/sourire-masque.png?v=4") center/100% 100% no-repeat;overflow:hidden}
+.liquid{position:absolute;left:-10%;right:-10%;bottom:0;height:130%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q15 0 30 10 T60 10 T90 10 T120 10 V20 H0Z' fill='%23C98B55'/%3E%3C/svg%3E") 0 0/60% 22% repeat-x,
+    linear-gradient(transparent 0 12%,#C98B55 12% 20%,#8A4B24 20%,#5C2C12 100%)}
+.coffee.full .liquid{animation:vague 2.4s linear infinite}
+@keyframes vague{to{background-position:60% 0,0 0}}
+
+
+/* Boissons signature */
+.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+.sig{position:relative;border-radius:24px;padding:24px 22px 26px;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;color:var(--black);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.sig:hover{transform:translateY(-8px) rotate(-1.5deg);box-shadow:0 24px 40px rgba(17,17,17,.18)}
+.sig .tag{position:absolute;top:18px;left:20px;font-family:var(--mono);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;background:rgba(255,255,255,.75);padding:5px 10px;border-radius:999px}
+.sig .price{position:absolute;top:16px;right:18px;font-family:var(--display);font-size:1.6rem;text-shadow:0 1px 8px rgba(0,0,0,.15)}
+.sig h3{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,2.6vw,2.4rem);line-height:.95;text-transform:uppercase}
+.sig p{font-family:var(--mono);font-size:.82rem;margin-top:8px}
+.sig .cup{position:absolute;top:62px;right:22px;width:34%;transform:rotate(-8deg);filter:drop-shadow(0 14px 18px rgba(0,0,0,.25))}
+.sig.matcha{background:#9DBA6A}
+.sig.ube{background:#B79BDB}
+.sig.tahini{background:#E6B04A}
+.sig.bonbon{background:var(--pink)}
+.sig.photo{color:var(--white);background:#333}
+.sig.photo img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sig.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),rgba(0,0,0,0) 55%)}
+.sig.photo > *:not(.bg){position:relative;z-index:1}
+.sig.photo .tag{position:absolute;color:var(--black)}
+.sig.photo .price{position:absolute}
+@media (max-width:860px){.signatures{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:0 16px 8px;scrollbar-width:none}.signatures::-webkit-scrollbar{display:none}.sig{flex:none;width:72vw;scroll-snap-align:center;min-height:340px}}
 
 /* Galerie */
 .moments{background:var(--black);color:var(--white)}
@@ -170,7 +202,7 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#"><img src="img/logo-blanc-sans-grains.webp?v=1" alt="Büse, accueil" width="1000" height="466"></a>
+    <a class="brand" href="#"><img src="img/logo-blanc-sans-grains.webp?v=4" alt="Büse, accueil" width="1000" height="466"></a>
     <nav aria-label="Navigation principale">
       <a href="#carte">La carte</a>
       <a href="#camion">Le camion</a>
@@ -186,10 +218,11 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
   <section class="hero" aria-label="Büse, wherever you go">
     <div class="hero-content">
       <h1 class="logo-stage" aria-label="Büse">
-        <img class="base" src="img/logo-blanc-sans-grains.webp?v=1" alt="" width="1000" height="466" fetchpriority="high">
-        <img class="bean b1" src="img/logo-blanc-grain.webp?v=1" alt="" width="70" height="75">
-        <img class="bean b2" src="img/logo-blanc-grain.webp?v=1" alt="" width="70" height="75">
-        <img class="bean b3" src="img/logo-blanc-grain.webp?v=1" alt="" width="70" height="75">
+        <img class="base" src="img/logo-blanc-sans-grains.webp?v=4" alt="" width="1000" height="466" fetchpriority="high">
+        <div class="coffee" aria-hidden="true"><div class="liquid"></div></div>
+        <img class="bean b1" src="img/logo-blanc-grain.webp?v=4" alt="" width="70" height="75">
+        <img class="bean b2" src="img/logo-blanc-grain.webp?v=4" alt="" width="70" height="75">
+        <img class="bean b3" src="img/logo-blanc-grain.webp?v=4" alt="" width="70" height="75">
       </h1>
       <p class="slogan">Wherever you go</p>
       <p class="hero-sub">Espresso, lattes et boissons sans café, servis depuis notre petit camion noir.</p>
@@ -199,8 +232,8 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
       </div>
     </div>
     <div class="hero-photos">
-    <figure class="polaroid p1"><img src="img/latte-art.webp?v=1" alt="Un latte avec un cœur en mousse, dans un gobelet Büse" width="900" height="1200"><span>flat white ♥</span></figure>
-    <figure class="polaroid p2"><img src="img/matcha-latte.webp?v=1" alt="Un matcha latte glacé dans un gobelet Büse" width="900" height="1200"><span>iced matcha</span></figure>
+    <figure class="polaroid p1"><img src="img/latte-art.webp?v=4" alt="Un latte avec un cœur en mousse, dans un gobelet Büse" width="900" height="1200"><span>flat white ♥</span></figure>
+    <figure class="polaroid p2"><img src="img/matcha-latte.webp?v=4" alt="Un matcha latte glacé dans un gobelet Büse" width="900" height="1200"><span>iced matcha</span></figure>
     </div>
   </section>
 
@@ -219,9 +252,15 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
         <p class="lead reveal">Le café classique, les boissons sans café pour celles et ceux qui préfèrent, et deux specials maison.</p>
       </div>
 
+      <div class="signatures">
+        <article class="sig photo reveal"><img class="bg" src="img/matcha-latte.webp?v=4" alt="" width="900" height="1200" loading="lazy"><span class="tag">No beans</span><span class="price">5,00 €</span><h3>Matcha<br>latte</h3><p>Chaud ou glacé.</p></article>
+        <article class="sig ube reveal"><span class="tag">No beans</span><span class="price">5,50 €</span><svg class="cup" viewBox="0 0 100 120" aria-hidden="true"><path d="M14 22h72l-8 92H22z" fill="#fff"/><path d="M10 14h80v10H10z" fill="#fff"/><path d="M8 8h84v8H8z" fill="#111"/><path d="M26 50h48l-3 40H29z" fill="none"/><text x="50" y="78" text-anchor="middle" font-family="Lilita One,sans-serif" font-size="20" fill="#7B55B0">BÜSE</text></svg><h3>Ube<br>latte</h3><p>Le violet de la carte.</p></article>
+        <article class="sig tahini reveal"><span class="tag">Special</span><span class="price">6,00 €</span><svg class="cup" viewBox="0 0 100 120" aria-hidden="true"><path d="M14 22h72l-8 92H22z" fill="#fff"/><path d="M10 14h80v10H10z" fill="#fff"/><path d="M8 8h84v8H8z" fill="#111"/><path d="M26 50h48l-3 40H29z" fill="none"/><text x="50" y="78" text-anchor="middle" font-family="Lilita One,sans-serif" font-size="20" fill="#B67C12">BÜSE</text></svg><h3>Honey<br>tahini</h3><p>Espresso, lait, tahini, miel, cannelle.</p></article>
+        <article class="sig bonbon reveal"><span class="tag">Special</span><span class="price">6,00 €</span><svg class="cup" viewBox="0 0 100 120" aria-hidden="true"><path d="M14 22h72l-8 92H22z" fill="#fff"/><path d="M10 14h80v10H10z" fill="#fff"/><path d="M8 8h84v8H8z" fill="#111"/><path d="M26 50h48l-3 40H29z" fill="none"/><text x="50" y="78" text-anchor="middle" font-family="Lilita One,sans-serif" font-size="20" fill="#D14E86">BÜSE</text></svg><h3>Bonbon<br>latte</h3><p>Espresso, lait concentré sucré.</p></article>
+      </div>
       <div class="paper">
         <div class="stamp-iced" aria-hidden="true">Hot<br>&amp;<br>iced</div>
-        <img class="paper-logo" src="img/logo-rouge.webp?v=1" alt="Büse" width="1028" height="479" loading="lazy">
+        <img class="paper-logo" src="img/logo-rouge.webp?v=4" alt="Büse" width="1028" height="479" loading="lazy">
         <p class="paper-slogan">Wherever you go</p>
         <div class="cols">
           <div>
@@ -265,12 +304,12 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
       <p class="lead reveal">Un latte entre deux étals, un matcha au soleil. Même les chiens du quartier passent dire bonjour.</p>
     </div>
     <div class="strip" tabindex="0" aria-label="Photos de Büse, faites défiler horizontalement">
-      <figure><img src="img/cappuccino-main.webp?v=1" alt="Un latte tenu devant le camion Büse ouvert" width="900" height="1200" loading="lazy"><figcaption>Latte, à emporter</figcaption></figure>
-      <figure><img src="img/menu-papier.webp?v=1" alt="Un latte posé sur le menu Büse, imprimé en rouge" width="900" height="1200" loading="lazy"><figcaption>La carte du jour</figcaption></figure>
-      <figure><img src="img/matcha-latte.webp?v=1" alt="Un matcha latte glacé à côté d'une petite citrouille" width="900" height="1200" loading="lazy"><figcaption>Iced matcha</figcaption></figure>
-      <figure><img src="img/chiens.webp?v=1" alt="Deux chiens assis devant le camion Büse" width="900" height="1200" loading="lazy"><figcaption>Les habitués</figcaption></figure>
-      <figure><img src="img/comptoir-machine.webp?v=1" alt="La machine à espresso dans le coffre ouvert du camion" width="900" height="1200" loading="lazy"><figcaption>La machine, dans le coffre</figcaption></figure>
-      <figure><img src="img/latte-art.webp?v=1" alt="Un latte art en forme de cœur dans un gobelet Büse rose" width="900" height="1200" loading="lazy"><figcaption>Latte art</figcaption></figure>
+      <figure><img src="img/cappuccino-main.webp?v=4" alt="Un latte tenu devant le camion Büse ouvert" width="900" height="1200" loading="lazy"><figcaption>Latte, à emporter</figcaption></figure>
+      <figure><img src="img/menu-papier.webp?v=4" alt="Un latte posé sur le menu Büse, imprimé en rouge" width="900" height="1200" loading="lazy"><figcaption>La carte du jour</figcaption></figure>
+      <figure><img src="img/matcha-latte.webp?v=4" alt="Un matcha latte glacé à côté d'une petite citrouille" width="900" height="1200" loading="lazy"><figcaption>Iced matcha</figcaption></figure>
+      <figure><img src="img/chiens.webp?v=4" alt="Deux chiens assis devant le camion Büse" width="900" height="1200" loading="lazy"><figcaption>Les habitués</figcaption></figure>
+      <figure><img src="img/comptoir-machine.webp?v=4" alt="La machine à espresso dans le coffre ouvert du camion" width="900" height="1200" loading="lazy"><figcaption>La machine, dans le coffre</figcaption></figure>
+      <figure><img src="img/latte-art.webp?v=4" alt="Un latte art en forme de cœur dans un gobelet Büse rose" width="900" height="1200" loading="lazy"><figcaption>Latte art</figcaption></figure>
     </div>
     <p class="strip-hint" aria-hidden="true">← faites glisser →</p>
   </section>
@@ -287,11 +326,11 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
           <div><b>1</b><span>machine</span></div>
         </div>
         <div class="truck-photo reveal">
-          <img src="img/camion-parc.webp?v=1" alt="Le camion Büse, hayon ouvert, devant un parc" width="900" height="1200" loading="lazy">
-          <img src="img/camion-marche.webp?v=1" alt="Le camion Büse garé sur un marché" width="900" height="1200" loading="lazy">
+          <img src="img/camion-parc.webp?v=4" alt="Le camion Büse, hayon ouvert, devant un parc" width="900" height="1200" loading="lazy">
+          <img src="img/camion-marche.webp?v=4" alt="Le camion Büse garé sur un marché" width="900" height="1200" loading="lazy">
         </div>
       </div>
-      <img class="plan reveal" src="img/plan-camion.webp?v=1" alt="Plan technique du camion Büse : 2,74 m de long, 1,72 m de haut, 1,26 m de large" width="1254" height="1254" loading="lazy">
+      <img class="plan reveal" src="img/plan-camion.webp?v=4" alt="Plan technique du camion Büse : 2,74 m de long, 1,72 m de haut, 1,26 m de large" width="1254" height="1254" loading="lazy">
     </div>
   </section>
 
@@ -306,7 +345,7 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
           <p>On annonce nos marchés et nos emplacements chaque semaine sur Instagram. Un événement, une fête, un bureau&nbsp;? Écrivez-nous là aussi.</p>
           <a class="pill pill-red" href="https://www.instagram.com/buse.coffee/">Suivre @buse.coffee</a>
         </div>
-        <img src="img/camion-profil.webp?v=1" alt="Le camion Büse de profil" width="900" height="1200" loading="lazy">
+        <img src="img/camion-profil.webp?v=4" alt="Le camion Büse de profil" width="900" height="1200" loading="lazy">
       </div>
     </div>
   </section>
@@ -321,13 +360,13 @@ footer a{color:var(--white);display:inline-block;padding-block:4px}
       <span>Ce site n'utilise aucun cookie.</span>
     </nav>
   </div>
-  <img class="footer-logo" src="img/logo-rouge.webp?v=1" alt="" width="1028" height="479" loading="lazy">
+  <img class="footer-logo" src="img/logo-rouge.webp?v=4" alt="" width="1028" height="479" loading="lazy">
 </footer>
 
-<script src="vendor/gsap.min.js?v=1" defer></script>
-<script src="vendor/ScrollTrigger.min.js?v=1" defer></script>
-<script src="vendor/SplitText.min.js?v=1" defer></script>
-<script src="vendor/lenis.min.js?v=1" defer></script>
-<script src="buse.js?v=1" defer></script>
+<script src="vendor/gsap.min.js?v=4" defer></script>
+<script src="vendor/ScrollTrigger.min.js?v=4" defer></script>
+<script src="vendor/SplitText.min.js?v=4" defer></script>
+<script src="vendor/lenis.min.js?v=4" defer></script>
+<script src="buse.js?v=4" defer></script>
 </body>
 </html>

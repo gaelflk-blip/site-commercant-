@@ -24,6 +24,7 @@
     mm.add('(prefers-reduced-motion: no-preference)', function () {
 
       /* ---------- 1. Ouverture : le logo, puis les grains tombent dans la tasse ---------- */
+      gsap.set('.liquid', { clearProps: 'transform' }); gsap.set('.liquid', { yPercent: 100 });
       gsap.set(['.logo-stage .base', '.bean', '.slogan', '.hero-sub', '.hero-cta', '.polaroid'], { visibility: 'visible' });
       var beans = gsap.utils.toArray('.bean');
       function drop(delay) {
@@ -39,6 +40,8 @@
         // le sourire « avale » les grains : petit écrasement du logo
         .to('.logo-stage .base', { scaleY: 0.94, scaleX: 1.03, duration: 0.12, transformOrigin: '50% 100%', ease: 'power2.out' }, 1.55)
         .to('.logo-stage .base', { scaleY: 1, scaleX: 1, duration: 0.6, ease: 'elastic.out(1, 0.4)' }, 1.67)
+        // puis le sourire se remplit de café
+        .fromTo('.liquid', { yPercent: 100 }, { yPercent: 22, duration: 1.2, ease: 'power2.out', onComplete: function () { document.querySelector('.coffee').classList.add('full'); } }, 1.65)
         .from('.slogan', { y: 16, autoAlpha: 0, letterSpacing: '0.6em', duration: 0.9 }, 1.2)
         .from('.hero-sub', { y: 16, autoAlpha: 0, duration: 0.7 }, 1.4)
         .from('.hero-cta .pill', { y: 16, autoAlpha: 0, duration: 0.6, stagger: 0.08 }, 1.5)
@@ -46,7 +49,13 @@
 
       // un clic ou un survol du logo refait tomber les grains
       var stage = document.querySelector('.logo-stage'), busy = false;
-      function again() { if (busy) return; busy = true; drop().eventCallback('onComplete', function () { busy = false; }); }
+      function again() {
+        if (busy) return; busy = true;
+        gsap.timeline({ onComplete: function () { busy = false; } })
+          .to('.liquid', { yPercent: 100, duration: 0.4, ease: 'power2.in' })
+          .add(drop())
+          .to('.liquid', { yPercent: 22, duration: 1, ease: 'power2.out' }, '-=0.2');
+      }
       stage.addEventListener('click', again);
       if (!touch) stage.addEventListener('pointerenter', again);
 
@@ -78,6 +87,7 @@
       gsap.set('.reveal:not(h2)', { y: 30 });
 
       /* ---------- 4. La carte : la feuille se pose, les lignes s'écrivent ---------- */
+      gsap.from('.sig .cup', { y: 40, rotation: -20, opacity: 0, duration: 0.9, stagger: 0.12, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.signatures', start: 'top 80%' } });
       gsap.from('.paper', { rotation: -3, y: 80, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.paper', start: 'top 85%' } });
       gsap.from('.paper .item', { x: -12, opacity: 0, duration: 0.45, stagger: 0.035, ease: 'power2.out', scrollTrigger: { trigger: '.paper .cols', start: 'top 80%' } });
       gsap.from('.stamp-iced', { scale: 2.4, opacity: 0, rotation: 40, duration: 0.5, ease: 'power4.in', scrollTrigger: { trigger: '.paper', start: 'top 60%' } });
