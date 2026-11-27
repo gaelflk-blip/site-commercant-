@@ -9,6 +9,7 @@ En ligne : https://gaelflk-blip.github.io/site-commercant-/
 | Commerçant | Dossier | Adresse |
 |---|---|---|
 | Aslan Börek (food truck) | `aslan-borek/` | https://gaelflk-blip.github.io/site-commercant-/aslan-borek/ |
+| Büse (café ambulant) | `buse/` | https://gaelflk-blip.github.io/site-commercant-/buse/ |
 
 ## Ajouter un nouveau commerçant
 

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Büse · Café ambulant, wherever you go</title>
+<meta name="description" content="Büse, le petit camion café noir : espresso, lattes, matcha, ube, chai et specials, servis depuis un Piaggio Ape. Wherever you go.">
+<meta property="og:title" content="Büse, café ambulant">
+<meta property="og:description" content="Espresso, lattes et boissons sans café, servis depuis notre petit camion noir.">
+<meta property="og:image" content="img/latte-art.webp">
+<meta name="theme-color" content="#111111">
+<link rel="stylesheet" href="fonts/fonts.css?v=1">
+<link rel="preload" href="fonts/lilitaone-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/logo-blanc-sans-grains.webp?v=1" as="image" fetchpriority="high">
+<script>
+document.documentElement.classList.add('js');
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.documentElement.classList.add('anim');
+  setTimeout(function(){if(!window.__animReady)document.documentElement.classList.remove('anim')},2500);
+}
+</script>
+<style>
+:root{
+  --black:#111111;
+  --ink:#1A1A1A;
+  --red:#D60F17;
+  --red-deep:#A80A10;
+  --paper:#F6F1EA;
+  --white:#FFFFFF;
+  --muted:#6B645C;
+  --pink:#F2A7C3;
+  --display:"Lilita One",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --body:"Figtree",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+html.lenis{scroll-behavior:auto}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@view-transition{navigation:auto}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);font-size:1.0625rem;line-height:1.6}
+main{overflow-x:hidden;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;box-shadow:0 0 0 7px var(--white);border-radius:6px}
+.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+section[id]{scroll-margin-top:80px}
+.mono{font-family:var(--mono)}
+
+/* En-tête */
+.top{position:fixed;inset:0 0 auto 0;z-index:30;transition:background-color .3s,box-shadow .3s}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.top.scrolled{background:rgba(17,17,17,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.brand img{height:30px;width:auto}
+.top nav{display:flex;gap:26px;font-family:var(--mono);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;color:var(--white)}
+.top nav a{text-decoration:none}
+.top nav a:hover{color:var(--pink)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:700;font-size:.85rem;text-transform:uppercase;text-decoration:none;padding:11px 18px;border-radius:999px;transition:transform .2s,background-color .2s,color .2s}
+.pill:hover{transform:translateY(-2px)}
+.pill-red{background:var(--red);color:var(--white)}
+.pill-red:hover{background:var(--red-deep)}
+.pill-white{background:var(--white);color:var(--black)}
+.pill-line{border:2px solid currentColor;color:var(--white)}
+.pill svg{width:18px;height:18px}
+@media (max-width:760px){.top nav{display:none}}
+
+/* Haut de page */
+.hero{position:relative;background:var(--black);color:var(--white);min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:110px 20px 60px;overflow:hidden;text-align:center}
+.hero::before{content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.logo-stage{position:relative;width:min(86vw,880px);aspect-ratio:1000/466;cursor:pointer}
+.logo-stage .base{position:absolute;inset:0;width:100%;height:100%}
+.bean{position:absolute;width:5.6%;height:auto;left:43.4%;will-change:transform}
+.bean.b1{top:0}
+.bean.b2{top:18.9%;left:41.2%;transform:rotate(-26deg)}
+.bean.b3{top:35.8%;left:43.1%;transform:rotate(-6deg)}
+.slogan{font-family:var(--mono);font-weight:700;letter-spacing:.32em;text-transform:uppercase;font-size:clamp(.85rem,1.6vw,1.15rem);margin-top:clamp(18px,3vw,34px)}
+.hero-sub{max-width:40ch;margin-top:18px;color:#CFC8BF;font-size:clamp(1rem,1.3vw,1.15rem)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+.polaroid{position:absolute;z-index:1;width:clamp(120px,15vw,210px);background:var(--white);padding:8px 8px 30px;box-shadow:0 18px 40px rgba(0,0,0,.45);border-radius:4px}
+.polaroid img{aspect-ratio:3/4;object-fit:cover;width:100%}
+.polaroid span{position:absolute;left:0;right:0;bottom:6px;font-family:var(--mono);font-size:.72rem;color:var(--ink);text-align:center}
+.polaroid.p1{left:4%;bottom:10%;transform:rotate(-8deg)}
+.polaroid.p2{right:4%;top:18%;transform:rotate(7deg)}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+@media (max-width:860px){
+  .hero{justify-content:flex-start;padding:120px 20px 0;min-height:0}
+  .hero-content{width:100%}
+  .polaroid{position:relative;width:40vw;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;flex:none}
+  .hero-photos{display:flex;justify-content:center;gap:4vw;margin:34px -10px -10px;padding-bottom:40px}
+  .polaroid.p2{margin-top:24px}
+}
+@media (min-width:861px){.hero-photos{display:contents}}
+.anim .logo-stage .base,.anim .bean,.anim .slogan,.anim .hero-sub,.anim .hero-cta,.anim .polaroid{visibility:hidden}
+
+/* Bandeau */
+.ticker{background:var(--red);color:var(--white);overflow:hidden;padding:16px 0;transform:rotate(-1.5deg);width:104%;margin:-18px -2% 0;position:relative;z-index:3}
+.ticker-track{display:flex;width:max-content;align-items:center}
+.ticker span{font-family:var(--display);font-size:clamp(1.4rem,3vw,2.2rem);text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:28px;padding-inline:14px}
+.ticker span::after{content:"";width:20px;height:28px;flex:none;background:url("img/logo-blanc-grain.webp?v=1") center/contain no-repeat;transform:rotate(18deg)}
+
+/* Sections */
+section{padding:clamp(72px,10vw,128px) 0}
+.kicker{font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;color:var(--red);margin-bottom:12px}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,6.5vw,5rem);line-height:.95;letter-spacing:-.01em;text-wrap:balance}
+.lead{max-width:56ch;margin-top:18px;font-size:1.12rem;color:var(--muted)}
+
+/* La carte, façon menu papier */
+.menu-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px}
+.paper{margin-top:48px;background:var(--white);border-radius:6px;box-shadow:0 30px 60px rgba(17,17,17,.12),0 2px 0 rgba(17,17,17,.04);padding:clamp(28px,5vw,64px);color:var(--red);font-family:var(--mono);position:relative}
+.paper-logo{width:clamp(150px,20vw,230px);margin-bottom:6px}
+.paper-slogan{font-weight:700;letter-spacing:.18em;font-size:.8rem;text-transform:uppercase;margin-bottom:clamp(24px,4vw,40px)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,56px)}
+.cols h3{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1;margin-bottom:14px;text-transform:uppercase}
+.item{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:8px;padding:6px 0;font-weight:700;text-transform:uppercase;font-size:.95rem}
+.item i{border-bottom:2px dotted currentColor;opacity:.55;transform:translateY(-4px)}
+.item em{font-style:normal;white-space:nowrap}
+.item small{grid-column:1/-1;font-weight:400;text-transform:none;font-size:.82rem;color:#B5554F;margin-top:-4px}
+.extras{margin-top:clamp(28px,4vw,40px);padding-top:20px;border-top:2px solid currentColor;display:grid;grid-template-columns:repeat(3,1fr);gap:12px 40px}
+.extras .item{font-size:.85rem}
+.paper-foot{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:.82rem;color:var(--ink)}
+.paper-foot b{color:var(--red)}
+.stamp-iced{position:absolute;top:clamp(20px,4vw,44px);right:clamp(20px,4vw,44px);width:clamp(92px,11vw,130px);aspect-ratio:1;border-radius:50%;border:3px solid var(--red);display:grid;place-items:center;text-align:center;font-weight:700;font-size:.78rem;line-height:1.25;transform:rotate(12deg);text-transform:uppercase}
+@media (max-width:860px){.cols,.extras{grid-template-columns:1fr}.stamp-iced{position:static;margin:0 0 20px auto}}
+
+/* Galerie */
+.moments{background:var(--black);color:var(--white)}
+.moments .lead{color:#CFC8BF}
+.strip{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:40px max(16px,calc((100vw - 1120px)/2)) 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.strip::-webkit-scrollbar{display:none}
+.strip figure{flex:none;width:clamp(230px,26vw,330px);scroll-snap-align:center;margin:0}
+.strip img{aspect-ratio:3/4;object-fit:cover;width:100%;border-radius:18px}
+.strip figcaption{font-family:var(--mono);font-size:.8rem;color:#CFC8BF;margin-top:10px}
+.strip-hint{font-family:var(--mono);font-size:.78rem;color:#8E867D;padding:0 max(16px,calc((100vw - 1120px)/2))}
+
+/* Le camion */
+.truck{background:var(--red);color:var(--white);overflow:hidden}
+.truck .kicker{color:var(--white);opacity:.85}
+.truck .lead{color:#FFE3E4}
+.truck-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,5vw,72px);align-items:center}
+.plan{border-radius:18px;box-shadow:0 30px 60px rgba(80,0,0,.35)}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.specs div{border:2px solid rgba(255,255,255,.5);border-radius:14px;padding:14px}
+.specs b{display:block;font-family:var(--display);font-weight:400;font-size:2rem;line-height:1}
+.specs span{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.truck-photo{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.truck-photo img{border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%}
+@media (max-width:860px){.truck-grid{grid-template-columns:1fr}}
+
+/* Nous trouver */
+.find{background:var(--paper)}
+.find-card{margin-top:36px;display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,4vw,48px);align-items:center;background:var(--white);border-radius:24px;padding:clamp(22px,4vw,44px)}
+.find-card img{border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.find-card p{color:var(--muted);margin-top:10px}
+.find-card .pill{margin-top:22px}
+@media (max-width:760px){.find-card{grid-template-columns:1fr}}
+
+/* Pied de page */
+footer{background:var(--black);color:var(--white);padding:56px 0 0;overflow:hidden}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:.85rem}
+footer a{color:var(--white);display:inline-block;padding-block:4px}
+.footer-logo{width:min(92vw,1100px);margin:48px auto -2%;opacity:.95}
+.legal{display:flex;flex-wrap:wrap;gap:6px 20px}
+
+/* Reveal */
+.anim .reveal{opacity:0}
+.split-line{overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/logo-blanc-sans-grains.webp?v=1" alt="Büse, accueil" width="1000" height="466"></a>
+    <nav aria-label="Navigation principale">
+      <a href="#carte">La carte</a>
+      <a href="#camion">Le camion</a>
+      <a href="#trouver">Nous trouver</a>
+    </nav>
+    <a class="pill pill-red" href="https://www.instagram.com/buse.coffee/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      buse.coffee</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-label="Büse, wherever you go">
+    <div class="hero-content">
+      <h1 class="logo-stage" aria-label="Büse">
+        <img class="base" src="img/logo-blanc-sans-grains.webp?v=1" alt="" width="1000" height="466" fetchpriority="high">
+        <img class="bean b1" src="img/logo-blanc-grain.webp?v=1" alt="" width="70" height="75">
+        <img class="bean b2" src="img/logo-blanc-grain.webp?v=1" alt="" width="70" height="75">
+        <img class="bean b3" src="img/logo-blanc-grain.webp?v=1" alt="" width="70" height="75">
+      </h1>
+      <p class="slogan">Wherever you go</p>
+      <p class="hero-sub">Espresso, lattes et boissons sans café, servis depuis notre petit camion noir.</p>
+      <div class="hero-cta">
+        <a class="pill pill-white" href="#carte">Voir la carte</a>
+        <a class="pill pill-line" href="#trouver">Où est le camion&nbsp;?</a>
+      </div>
+    </div>
+    <div class="hero-photos">
+    <figure class="polaroid p1"><img src="img/latte-art.webp?v=1" alt="Un latte avec un cœur en mousse, dans un gobelet Büse" width="900" height="1200"><span>flat white ♥</span></figure>
+    <figure class="polaroid p2"><img src="img/matcha-latte.webp?v=1" alt="Un matcha latte glacé dans un gobelet Büse" width="900" height="1200"><span>iced matcha</span></figure>
+    </div>
+  </section>
+
+  <div class="ticker" role="presentation"><div class="ticker-track">
+    <span>Espresso</span><span>Flat white</span><span>Matcha</span><span>Ube latte</span><span>Chai</span><span>Bonbon latte</span><span>Honey tahini</span><span>Hot &amp; iced</span>
+    <span aria-hidden="true">Espresso</span><span aria-hidden="true">Flat white</span><span aria-hidden="true">Matcha</span><span aria-hidden="true">Ube latte</span><span aria-hidden="true">Chai</span><span aria-hidden="true">Bonbon latte</span><span aria-hidden="true">Honey tahini</span><span aria-hidden="true">Hot &amp; iced</span>
+  </div></div>
+
+  <section id="carte">
+    <div class="wrap">
+      <div class="menu-head">
+        <div>
+          <p class="kicker">La carte</p>
+          <h2 class="reveal">Du grain,<br>ou pas.</h2>
+        </div>
+        <p class="lead reveal">Le café classique, les boissons sans café pour celles et ceux qui préfèrent, et deux specials maison.</p>
+      </div>
+
+      <div class="paper">
+        <div class="stamp-iced" aria-hidden="true">Hot<br>&amp;<br>iced</div>
+        <img class="paper-logo" src="img/logo-rouge.webp?v=1" alt="Büse" width="1028" height="479" loading="lazy">
+        <p class="paper-slogan">Wherever you go</p>
+        <div class="cols">
+          <div>
+            <h3>Coffee</h3>
+            <p class="item"><span>Espresso</span><i></i><em>2,50 €</em></p>
+            <p class="item"><span>Americano</span><i></i><em>3,00 €</em></p>
+            <p class="item"><span>Cortado</span><i></i><em>3,50 €</em></p>
+            <p class="item"><span>Cappuccino</span><i></i><em>4,00 €</em></p>
+            <p class="item"><span>Flat white</span><i></i><em>4,50 €</em></p>
+            <p class="item"><span>Latte</span><i></i><em>4,50 €</em></p>
+          </div>
+          <div>
+            <h3>No beans</h3>
+            <p class="item"><span>Matcha latte</span><i></i><em>5,00 €</em></p>
+            <p class="item"><span>Ube latte</span><i></i><em>5,50 €</em></p>
+            <p class="item"><span>Chai latte</span><i></i><em>5,00 €</em></p>
+            <p class="item"><span>Hot chocolate</span><i></i><em>4,50 €</em></p>
+            <p class="item"><span>Clear and sunny</span><i></i><em>5,00 €</em><small>Pamplemousse, citron, pêche, tonic</small></p>
+            <p class="item"><span>Good mood</span><i></i><em>5,00 €</em><small>Thé noir, pêche blanche</small></p>
+          </div>
+          <div>
+            <h3>Specials</h3>
+            <p class="item"><span>Bonbon latte</span><i></i><em>6,00 €</em><small>Espresso, lait concentré sucré</small></p>
+            <p class="item"><span>Honey tahini latte</span><i></i><em>6,00 €</em><small>Espresso, lait, tahini, miel, cannelle</small></p>
+          </div>
+        </div>
+        <div class="extras">
+          <p class="item"><span>Lait végétal</span><i></i><em>+0,50 €</em><small>Avoine, coco</small></p>
+          <p class="item"><span>Sirop</span><i></i><em>+0,50 €</em><small>Vanille, caramel, noisette</small></p>
+          <p class="item"><span>Extra shot</span><i></i><em>+0,50 €</em></p>
+        </div>
+        <p class="paper-foot"><span><b>Hot &amp; iced</b> : la plupart des boissons existent chaudes ou glacées.</span><span>Prix indicatifs, affichés au camion.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="moments" aria-labelledby="moments-titre">
+    <div class="wrap">
+      <p class="kicker">Au camion</p>
+      <h2 id="moments-titre" class="reveal">Une pause,<br>un sourire.</h2>
+      <p class="lead reveal">Un latte entre deux étals, un matcha au soleil. Même les chiens du quartier passent dire bonjour.</p>
+    </div>
+    <div class="strip" tabindex="0" aria-label="Photos de Büse, faites défiler horizontalement">
+      <figure><img src="img/cappuccino-main.webp?v=1" alt="Un latte tenu devant le camion Büse ouvert" width="900" height="1200" loading="lazy"><figcaption>Latte, à emporter</figcaption></figure>
+      <figure><img src="img/menu-papier.webp?v=1" alt="Un latte posé sur le menu Büse, imprimé en rouge" width="900" height="1200" loading="lazy"><figcaption>La carte du jour</figcaption></figure>
+      <figure><img src="img/matcha-latte.webp?v=1" alt="Un matcha latte glacé à côté d'une petite citrouille" width="900" height="1200" loading="lazy"><figcaption>Iced matcha</figcaption></figure>
+      <figure><img src="img/chiens.webp?v=1" alt="Deux chiens assis devant le camion Büse" width="900" height="1200" loading="lazy"><figcaption>Les habitués</figcaption></figure>
+      <figure><img src="img/comptoir-machine.webp?v=1" alt="La machine à espresso dans le coffre ouvert du camion" width="900" height="1200" loading="lazy"><figcaption>La machine, dans le coffre</figcaption></figure>
+      <figure><img src="img/latte-art.webp?v=1" alt="Un latte art en forme de cœur dans un gobelet Büse rose" width="900" height="1200" loading="lazy"><figcaption>Latte art</figcaption></figure>
+    </div>
+    <p class="strip-hint" aria-hidden="true">← faites glisser →</p>
+  </section>
+
+  <section id="camion" class="truck">
+    <div class="wrap truck-grid">
+      <div>
+        <p class="kicker">Le camion</p>
+        <h2 class="reveal">Petit camion,<br>grand café.</h2>
+        <p class="lead reveal">Un Piaggio Ape tout noir, une machine à espresso dans le coffre, et le hayon qui s'ouvre en comptoir. Il se gare là où vous êtes.</p>
+        <div class="specs reveal">
+          <div><b>2,74 m</b><span>de long</span></div>
+          <div><b>3</b><span>roues</span></div>
+          <div><b>1</b><span>machine</span></div>
+        </div>
+        <div class="truck-photo reveal">
+          <img src="img/camion-parc.webp?v=1" alt="Le camion Büse, hayon ouvert, devant un parc" width="900" height="1200" loading="lazy">
+          <img src="img/camion-marche.webp?v=1" alt="Le camion Büse garé sur un marché" width="900" height="1200" loading="lazy">
+        </div>
+      </div>
+      <img class="plan reveal" src="img/plan-camion.webp?v=1" alt="Plan technique du camion Büse : 2,74 m de long, 1,72 m de haut, 1,26 m de large" width="1254" height="1254" loading="lazy">
+    </div>
+  </section>
+
+  <section id="trouver" class="find">
+    <div class="wrap">
+      <p class="kicker">Nous trouver</p>
+      <h2 class="reveal">Wherever<br>you go.</h2>
+      <div class="find-card reveal">
+        <div>
+          <h3 class="mono" style="font-size:1.1rem">Où est le camion cette semaine&nbsp;?</h3>
+          <!-- À COMPLÉTER : marchés (jour, lieu, horaires) -->
+          <p>On annonce nos marchés et nos emplacements chaque semaine sur Instagram. Un événement, une fête, un bureau&nbsp;? Écrivez-nous là aussi.</p>
+          <a class="pill pill-red" href="https://www.instagram.com/buse.coffee/">Suivre @buse.coffee</a>
+        </div>
+        <img src="img/camion-profil.webp?v=1" alt="Le camion Büse de profil" width="900" height="1200" loading="lazy">
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><a href="https://www.instagram.com/buse.coffee/">Instagram @buse.coffee</a></p>
+    <nav class="legal" aria-label="Informations légales">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="confidentialite.html">Vie privée</a>
+      <span>Ce site n'utilise aucun cookie.</span>
+    </nav>
+  </div>
+  <img class="footer-logo" src="img/logo-rouge.webp?v=1" alt="" width="1028" height="479" loading="lazy">
+</footer>
+
+<script src="vendor/gsap.min.js?v=1" defer></script>
+<script src="vendor/ScrollTrigger.min.js?v=1" defer></script>
+<script src="vendor/SplitText.min.js?v=1" defer></script>
+<script src="vendor/lenis.min.js?v=1" defer></script>
+<script src="buse.js?v=1" defer></script>
+</body>
+</html>
