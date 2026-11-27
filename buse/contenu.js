@@ -19,7 +19,7 @@
     if (!box || !Array.isArray(liste)) return;
     box.querySelectorAll('.item').forEach(function (p) { p.remove(); });
     liste.forEach(function (d) {
-      if (!d || !d.nom) return;
+      if (!d || !d.nom || d.masque) return; // masque : boisson indisponible
       box.appendChild(item(d, plus, nom === 'options' && d.en_hiver === false ? 'ete' : ''));
     });
     box.hidden = !liste.length && nom !== 'coffee';
@@ -46,7 +46,7 @@
       try {
         var j = JSON.parse(ld.textContent);
         var sec = function (name, l, plus) {
-          return { '@type': 'MenuSection', name: name, hasMenuItem: (l || []).filter(function (d) { return d && d.nom; }).map(function (d) {
+          return { '@type': 'MenuSection', name: name, hasMenuItem: (l || []).filter(function (d) { return d && d.nom && !d.masque; }).map(function (d) {
             var m = { '@type': 'MenuItem', name: d.nom, offers: { '@type': 'Offer', price: Number(d.prix).toFixed(2), priceCurrency: 'EUR' } };
             if (d.detail) m.description = d.detail; return m;
           }) };
@@ -64,9 +64,17 @@
     }
   }
 
+  // Aperçu dans l'admin : le brouillon est envoyé par la page admin (même site seulement)
+  if (/[?&]apercu=1/.test(location.search)) {
+    addEventListener('message', function (e) {
+      if (e.origin !== location.origin || !e.data || e.data.type !== 'buse-apercu') return;
+      window.__apercu = true; appliquer(e.data.contenu);
+    });
+  }
+
   // « no-cache » : le navigateur revérifie le fichier, une modification se voit tout de suite
   window.busePret = fetch('contenu.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (c) { appliquer(c); return c; })
+    .then(function (c) { if (!window.__apercu) appliquer(c); return c; }) // l'aperçu de l'admin a la priorité
     .catch(function () { return null; }); // pas de fichier : la carte écrite dans la page reste
 })();

@@ -79,10 +79,9 @@ Installés après une revue de sécurité (novembre 2026), seulement les parties
 
 ## Admin pour les commerçants (essai sur Büse)
 
-- Le contenu qui change souvent est dans `buse/contenu.json` (saison hiver/normale, carte et prix, options, annonce du moment, marchés, liens Instagram). `contenu.js` l'applique à la page au chargement (`fetch` en `no-cache`) ; la carte écrite dans le HTML sert de secours si le fichier ne charge pas. `consent.js` lit marchés et Instagram depuis ce fichier.
-- Admin : **Decap CMS 3.x** copié depuis npm dans `buse/admin/decap/`, réglages dans `buse/admin/config.yml` (en français, `noindex`, CSS ajoutée pour téléphone). Il ne modifie que `contenu.json`, jamais le design.
-- Test sur l'ordinateur : `decap-server` (npm) lancé à la racine du dépôt + `local_backend: true` → `http://localhost:8765/buse/admin/`.
-- **En ligne, la connexion ne marche pas sur GitHub Pages** : il faut l'hébergement Netlify (connexion GitHub gérée par Netlify) ou un petit service d'authentification. À régler au moment de l'hébergement. Pages CMS (pagescms.org) est une alternative qui lirait le même `contenu.json`, mais son site était bloqué par le réseau de la session.
+- Le contenu qui change souvent est dans `buse/contenu.json` (saison hiver/normale, carte et prix, `masque` = boisson indisponible, options, annonce du moment, marchés, liens Instagram). `contenu.js` l'applique à la page au chargement (`fetch` en `no-cache`) ; la carte écrite dans le HTML sert de secours. `consent.js` lit marchés et Instagram depuis ce fichier.
+- **Admin maison** `buse/admin/index.html` (Decap a été essayé puis abandonné : fait pour ordinateur, peu lisible sur iPhone). Pensé téléphone, inspiré des meilleurs éditeurs : toucher une ligne pour la modifier (Shopify), prix avec −/+, interrupteur « Disponible » (rupture), choix de saison en un geste, annonce avec idées de messages, onglet **Aperçu** en direct (iframe `?apercu=1` + `postMessage`, même origine), brouillon gardé dans le navigateur (rien n'est perdu), **liste des changements avant de publier** (« Espresso : 2,50 € → 2,80 € »), « Tout annuler ».
+- Publication : `POST /api/publier` avec en-tête `X-Admin-Password`. Test sur l'ordinateur : `node outils/admin-local.js` (port 8082, écrit `buse/contenu.json`). **En ligne : à faire au moment de l'hébergement** (fonction Netlify qui vérifie le mot de passe et écrit `contenu.json` via l'API GitHub avec un jeton gardé côté serveur ; le commerçant n'a pas besoin de compte GitHub).
 - Pour Aslan, même principe à reproduire si Gaël valide.
 
 ## SEO et mise en ligne
