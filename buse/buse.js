@@ -62,7 +62,8 @@
       // les polaroïds flottent et suivent un peu le défilement
       gsap.to('.polaroid.p1', { y: -10, rotation: -6, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1 });
       gsap.to('.polaroid.p2', { y: 10, rotation: 9, duration: 3.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-      gsap.to('.hero-content', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.5 } });
+      // sur téléphone, les polaroïds sont juste sous le texte : pas de décalage, sinon le texte passe dessous
+      if (matchMedia('(min-width: 761px)').matches) gsap.to('.hero-content', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.5 } });
 
       /* ---------- 2. Bandeau : défile en continu, accélère un peu au défilement ---------- */
       var loop = gsap.to('.ticker-track', { xPercent: -50, duration: 30, ease: 'none', repeat: -1 });
