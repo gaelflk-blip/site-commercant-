@@ -104,7 +104,7 @@
     });
     gsap.utils.toArray('.lead.reveal, .find.reveal, ul.reveal').forEach(function (el) {
       gsap.set(el, { visibility: 'visible' });
-      gsap.from(el, { y: 30, autoAlpha: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+      gsap.from(el, { y: 30, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
     });
 
     /* ---------- 4. Les trois étapes : photos dévoilées dans l'ordre ---------- */
@@ -114,22 +114,22 @@
       steps
         .fromTo(step.querySelector('img, video'), { clipPath: 'inset(100% 0 0 0)', scale: 1.15 },
           { clipPath: 'inset(0% 0 0 0)', scale: 1, duration: 1.1, ease: 'expo.out' }, i * 0.22)
-        .from(step.querySelectorAll('figcaption, p'), { y: 18, autoAlpha: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out' }, i * 0.22 + 0.35);
+        .from(step.querySelectorAll('figcaption, p'), { y: 18, opacity: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out' }, i * 0.22 + 0.35);
     });
 
     /* ---------- 5. La carte : les plats arrivent en cascade ---------- */
-    gsap.set('.dish.reveal', { visibility: 'visible', autoAlpha: 0 });
+    gsap.set('.dish.reveal', { visibility: 'visible', opacity: 0 });
     ScrollTrigger.batch('.dish', {
       start: 'top 92%',
       onEnter: function (batch) {
-        gsap.fromTo(batch, { x: -24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.6, stagger: 0.07, ease: 'power3.out', overwrite: true });
+        gsap.fromTo(batch, { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.07, ease: 'power3.out', overwrite: true });
       }
     });
 
     /* ---------- 6. Le camion : photos à vitesses différentes ---------- */
     gsap.set('.truck-photos.reveal', { visibility: 'visible' });
     gsap.from('.truck-photos > *', {
-      y: 60, autoAlpha: 0, duration: 1, stagger: 0.15, ease: 'power3.out',
+      y: 60, opacity: 0, duration: 1, stagger: 0.15, ease: 'power3.out',
       scrollTrigger: { trigger: '.truck-photos', start: 'top 80%' }
     });
     gsap.to('.truck-photos > :first-child', {
@@ -147,4 +147,11 @@
   }); });
 
   addEventListener('load', function () { ScrollTrigger.refresh(); });
+
+  // au clavier : un élément qui reçoit le focus s'affiche tout de suite, même s'il n'est pas encore apparu
+  document.addEventListener('focusin', function (e) {
+    if (!window.gsap || !e.target.matches || !e.target.matches(':focus-visible')) return;
+    var r = e.target.closest && e.target.closest('.reveal');
+    if (r && +getComputedStyle(r).opacity < 1) { gsap.killTweensOf(r); gsap.set(r, { opacity: 1, visibility: 'visible', y: 0 }); }
+  });
 })();

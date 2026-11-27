@@ -56,6 +56,7 @@ Infos encore manquantes : voir les champs `[entre crochets]` surlignés en jaune
 - La barre fixe « Appeler » sur mobile ne doit pas cacher les boutons du haut : l'afficher seulement après le haut de page.
 - Une image en niveaux de gris sans canal alpha ne marche pas comme masque CSS : la convertir en PNG avec transparence.
 - Contenu qui apparaît au défilement (`.reveal` à opacité 0) : l'afficher tout de suite s'il reçoit le focus **au clavier** (`:focus-visible`), pas au clic souris (sinon l'élément bouge pendant le clic et le clic est perdu).
+- **Apparitions au défilement : animer `opacity`, pas `autoAlpha`** (qui met `visibility:hidden` : liens et champs deviennent inatteignables au clavier). Et ne pas relancer l'animation d'un élément déjà affiché par le focus (`data-shown`).
 - Formulaires : vérifier les valeurs (date à venir, minimum, e-mail ou téléphone), message sous chaque champ avec `aria-invalid` et `aria-describedby`, confirmation en `role="status"`. Ouvrir un lien externe pendant le clic, pas après une promesse (Safari bloque).
 
 ## Médias et IA

@@ -3,11 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Traiteur · Aslan Börek, le camion à votre événement</title>
-<meta name="description" content="Réservez le camion Aslan Börek pour votre mariage, anniversaire ou fête d'entreprise : börek turcs faits à la main et cuits en direct pour vos invités.">
+<title>Traiteur à Bruxelles · Aslan Börek, le food truck à votre événement</title>
+<meta name="description" content="Réservez le camion Aslan Börek à Bruxelles pour votre mariage, anniversaire ou fête d'entreprise : börek turcs faits à la main et cuits en direct pour vos invités.">
+<!-- APERÇU : ne pas indexer tant que le site n'est pas sur son domaine. À RETIRER au lancement (et remplacer https://gaelflk-blip.github.io/site-commercant-/aslan-borek/ par le domaine partout). -->
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://gaelflk-blip.github.io/site-commercant-/aslan-borek/traiteur/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aslan Börek">
+<meta property="og:locale" content="fr_BE">
+<meta property="og:url" content="https://gaelflk-blip.github.io/site-commercant-/aslan-borek/traiteur/">
 <meta property="og:title" content="Aslan Börek traiteur : le camion à votre événement">
-<meta property="og:image" content="../img/comptoir-evenement.jpg">
-<link rel="stylesheet" href="../fonts/fonts.css?v=15">
+<meta property="og:description" content="Börek turcs faits à la main et cuits en direct pour vos invités. Demandez un devis.">
+<meta property="og:image" content="https://gaelflk-blip.github.io/site-commercant-/aslan-borek/img/partage-traiteur.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Le comptoir du camion Aslan Börek installé pour un événement">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#C8102E">
+<link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../img/favicon-96.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Service",
+ "name": "Aslan Börek traiteur",
+ "serviceType": "Traiteur food truck",
+ "description": "Réservez le camion Aslan Börek pour votre événement à Bruxelles : börek turcs faits à la main et cuits en direct pour vos invités. Sur devis.",
+ "url": "https://gaelflk-blip.github.io/site-commercant-/aslan-borek/traiteur/",
+ "provider": {
+  "@id": "https://gaelflk-blip.github.io/site-commercant-/aslan-borek/#aslan",
+  "@type": "FoodEstablishment",
+  "name": "Aslan Börek",
+  "url": "https://gaelflk-blip.github.io/site-commercant-/aslan-borek/"
+ },
+ "areaServed": {
+  "@type": "City",
+  "name": "Bruxelles"
+ }
+}
+</script>
+<link rel="stylesheet" href="../fonts/fonts.css?v=17">
 <link rel="preload" href="../fonts/bricolagegrotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>
 document.documentElement.classList.add('js');
@@ -80,7 +116,10 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;background:var(--f
 label,legend{font-weight:600;font-size:.98rem}
 .opt{font-weight:400;color:var(--muted)}
 input,select,textarea{font:inherit;color:var(--ink);background:var(--white);border:2px solid #D8D2C6;border-radius:6px;padding:11px 12px;width:100%}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--tile)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--tile);box-shadow:0 0 0 3px rgba(28,44,82,.25)}
+[aria-invalid="true"]{border-color:var(--red)!important}
+.field-error{color:var(--red);font-size:.85rem;font-weight:600;margin-top:6px}
+.req{font-size:.88rem;color:var(--muted);grid-column:1/-1}
 textarea{min-height:110px;resize:vertical}
 fieldset{border:0;padding:0;grid-column:1/-1}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
@@ -101,14 +140,14 @@ footer a{color:var(--gold)}
 .split-line{overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
 .anim .reveal{visibility:hidden}
 </style>
-<link rel="stylesheet" href="../vendor/lenis.css?v=15">
+<link rel="stylesheet" href="../vendor/lenis.css?v=17">
 <style>@view-transition{navigation:auto}html.lenis{scroll-behavior:auto}</style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a href="../"><img src="../img/logo.webp?v=15" alt="Aslan Börek, retour à l'accueil" width="260" height="120" style="height:44px;width:auto"></a>
+    <a href="../"><img src="../img/logo.webp?v=17" alt="Aslan Börek, retour à l'accueil" width="260" height="120" style="height:44px;width:auto"></a>
     <nav aria-label="Navigation">
       <a href="../#carte">La carte</a>
       <a href="#comment">Comment ça marche</a>
@@ -173,6 +212,7 @@ footer a{color:var(--gold)}
       </div>
 
       <form id="devis" class="reveal" novalidate>
+        <p class="req full">Tous les champs sont obligatoires, sauf ceux marqués « facultatif ».</p>
         <div class="field full">
           <label for="type">Type d'événement</label>
           <select id="type" name="type" required>
@@ -244,16 +284,49 @@ footer a{color:var(--gold)}
 </footer>
 
 <script>
+/* Formulaire de devis : prépare un e-mail ou un message WhatsApp, rien n'est stocké. */
 (function(){
   var form=document.getElementById('devis'), err=document.getElementById('erreur'), via='email';
-  var d=document.getElementById('date'); d.min=new Date().toISOString().slice(0,10);
+  var d=document.getElementById('date');
+  var today=new Date(); today.setMinutes(today.getMinutes()-today.getTimezoneOffset()); d.min=today.toISOString().slice(0,10);
   form.querySelectorAll('button[data-via]').forEach(function(b){b.addEventListener('click',function(){via=b.dataset.via})});
+
+  function setError(f,msg){
+    f.setAttribute('aria-invalid','true');
+    var id=f.id+'-err', p=document.getElementById(id);
+    if(!p){p=document.createElement('p');p.id=id;p.className='field-error';f.parentNode.appendChild(p)}
+    p.textContent=msg; f.setAttribute('aria-describedby',id);
+  }
+  function clearError(f){
+    f.removeAttribute('aria-invalid'); f.removeAttribute('aria-describedby');
+    var p=document.getElementById(f.id+'-err'); if(p)p.remove();
+  }
+  form.querySelectorAll('input,select,textarea').forEach(function(f){
+    f.addEventListener('input',function(){if(f.getAttribute('aria-invalid'))clearError(f)});
+    f.addEventListener('change',function(){if(f.getAttribute('aria-invalid'))clearError(f)});
+  });
+
+  function check(){
+    var problems=[], el=function(id){return document.getElementById(id)};
+    function need(f,msg,ok){if(!ok){setError(f,msg);problems.push(f)}else clearError(f)}
+    need(el('type'),"Choisissez le type d'événement.",!!el('type').value);
+    var dv=el('date').value;
+    need(el('date'),dv?'Choisissez une date à venir.':'Indiquez la date.',!!dv&&dv>=d.min);
+    var n=parseInt(el('invites').value,10);
+    need(el('invites'),el('invites').value?'À partir de 10 invités.':"Indiquez le nombre d'invités.",n>=10);
+    need(el('lieu'),'Indiquez la commune ou l\'adresse.',!!el('lieu').value.trim());
+    need(el('nom'),'Indiquez votre nom.',!!el('nom').value.trim());
+    var t=el('tel').value.replace(/[^\d]/g,'');
+    need(el('tel'),el('tel').value.trim()?'Entrez un numéro de téléphone valide.':'Indiquez votre téléphone.',t.length>=8);
+    return problems;
+  }
+
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    var missing=[].slice.call(form.querySelectorAll('[required]')).filter(function(f){return !f.value.trim()});
-    if(missing.length){
-      err.textContent='Il manque : '+missing.map(function(f){return form.querySelector('label[for="'+f.id+'"]').firstChild.textContent.trim().toLowerCase()}).join(', ')+'.';
-      missing[0].focus(); return;
+    var problems=check();
+    if(problems.length){
+      err.textContent=problems.length===1?'Un champ est à corriger.':problems.length+' champs sont à corriger.';
+      problems[0].focus(); return;
     }
     err.textContent='';
     var v=function(n){return form.elements[n].value.trim()};
@@ -269,10 +342,10 @@ footer a{color:var(--gold)}
   });
 })();
 </script>
-<script src="../vendor/gsap.min.js?v=15" defer></script>
-<script src="../vendor/ScrollTrigger.min.js?v=15" defer></script>
-<script src="../vendor/SplitText.min.js?v=15" defer></script>
-<script src="../vendor/lenis.min.js?v=15" defer></script>
+<script src="../vendor/gsap.min.js?v=17" defer></script>
+<script src="../vendor/ScrollTrigger.min.js?v=17" defer></script>
+<script src="../vendor/SplitText.min.js?v=17" defer></script>
+<script src="../vendor/lenis.min.js?v=17" defer></script>
 <script defer>
 addEventListener('DOMContentLoaded',function(){
   var root=document.documentElement;
@@ -290,8 +363,15 @@ addEventListener('DOMContentLoaded',function(){
       .fromTo('.hero img',{clipPath:'inset(0 0 100% 0)'},{clipPath:'inset(0 0 0% 0)',duration:1.2,ease:'expo.inOut'},0);
     gsap.utils.toArray('h2.reveal').forEach(function(t){var s=new SplitText(t,{type:'lines',mask:'lines',linesClass:'split-line'});
       gsap.from(s.lines,{yPercent:105,duration:1,stagger:.1,scrollTrigger:{trigger:t,start:'top 85%'}})});
-    gsap.set('main section:not(.hero) .reveal:not(h2)',{autoAlpha:0});
-    ScrollTrigger.batch('main section:not(.hero) .reveal:not(h2)',{start:'top 90%',onEnter:function(b){gsap.fromTo(b,{y:30,autoAlpha:0},{y:0,autoAlpha:1,duration:.7,stagger:.08,ease:'power3.out',overwrite:true})}});
+    gsap.set('main section:not(.hero) .reveal:not(h2)',{opacity:0}); // opacité seule : les champs restent accessibles au clavier
+    ScrollTrigger.batch('main section:not(.hero) .reveal:not(h2)',{start:'top 90%',onEnter:function(b){b=b.filter(function(e){return !e.dataset.shown});if(!b.length)return;gsap.fromTo(b,{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.08,ease:'power3.out',overwrite:true})}});
+
+  // au clavier : un élément qui reçoit le focus s'affiche tout de suite, même s'il n'est pas encore apparu
+  document.addEventListener('focusin', function (e) {
+    if (!window.gsap || !e.target.matches || !e.target.matches(':focus-visible')) return;
+    var r = e.target.closest && e.target.closest('.reveal');
+    if (r && +getComputedStyle(r).opacity < 1) { gsap.killTweensOf(r); r.dataset.shown = '1'; gsap.set(r, { opacity: 1, y: 0 }); }
+  });
   });
 });
 </script>
