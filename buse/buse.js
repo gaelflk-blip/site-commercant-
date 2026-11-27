@@ -25,7 +25,7 @@
 
       /* ---------- 1. Ouverture : le logo, puis les grains tombent dans la tasse ---------- */
       gsap.set('.liquid', { clearProps: 'transform' }); gsap.set('.liquid', { yPercent: 100 });
-      gsap.set(['.logo-stage .base', '.bean', '.slogan', '.hero-sub', '.hero-cta', '.polaroid'], { visibility: 'visible' });
+      gsap.set(['.bean', '.slogan', '.hero-sub', '.hero-cta', '.polaroid'], { visibility: 'visible' });
       var beans = gsap.utils.toArray('.bean');
       function drop(delay) {
         // chaque grain tombe d'au-dessus de l'écran, rebondit légèrement et se pose à sa place
@@ -35,7 +35,7 @@
       }
       var intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
       intro
-        .from('.logo-stage .base', { scale: 0.7, autoAlpha: 0, duration: 0.9, ease: 'back.out(1.6)' }, 0.1)
+        .from('.logo-stage .base', { scale: 0.85, duration: 0.9, ease: 'back.out(1.6)' }, 0.1)
         .add(drop(), 0.55)
         // le sourire « avale » les grains : petit écrasement du logo
         .to('.logo-stage .base', { scaleY: 0.94, scaleX: 1.03, duration: 0.12, transformOrigin: '50% 100%', ease: 'power2.out' }, 1.55)
