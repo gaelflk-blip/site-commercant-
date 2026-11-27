@@ -61,6 +61,17 @@ Infos encore manquantes : voir les champs `[entre crochets]` surlignés en jaune
 - Prompts vidéo stricts : « Utilise cette photo exactement comme première image… Ne change rien… N'ajoute aucun ingrédient, aucune personne… Seul mouvement : … Pas de fumée, pas de texte, pas de musique. » **Une nouvelle discussion Gemini par vidéo**, sinon il mélange les photos. Vérifier chaque vidéo : Gemini invente parfois des ingrédients ou un faux logo (recadrer si besoin).
 - Nano Banana : détourage sur **fond vert #00FF00** (je découpe moi-même), cartes de profondeur pour l'effet relief.
 
+## Skills installés dans `.claude/skills/`
+
+Installés après une revue de sécurité (novembre 2026), seulement les parties sûres, sans hook ni changement de réglages :
+- `frontend-design`, `webapp-testing` (Anthropic).
+- `hallmark` (Nutlope/hallmark) : anti « look IA ». Scripts d'installation, de hook et de génération d'images retirés. `scripts/sloplint.mjs` (mode statique) peut servir à vérifier une page. Utiliser le mode « brand-truth » : l'univers du commerçant, pas ses thèmes au hasard.
+- `impeccable` (pbakaus/impeccable) : seulement `SKILL.md` + `reference/` (relecture façon graphiste : critique, audit, polish, typo, mise en page, animation). Le dossier `scripts/` est volontairement absent (binaire fermé + télémétrie) : prendre le chemin « launcher unavailable » et ne jamais télécharger ce binaire.
+- SEO (AgriciDaniel/claude-seo) : `seo-local`, `seo-schema` (+ `schema-templates.json`), `seo-page`, `seo-technical`, `seo-sitemap`, `seo-images`, `seo-hreflang`, utilisés comme listes de contrôle. Leurs scripts Python ne sont pas installés. Ne pas installer `install.sh`, les hooks, les agents, les extensions ni `seo-flow`. Ne jamais reprendre leurs « statistiques » comme des faits.
+- Refusé : `agent-browser` (Vercel) — il veut remplacer Playwright et pré-autorise toutes ses commandes.
+
+**En cas de conflit, ce fichier gagne sur les skills** : garder `overflow-x:hidden` avant `clip` (iOS < 16), les petits titres en capitales espacées sont autorisés quand ils viennent de la marque (ex. menu papier de Büse), et jamais de fait inventé.
+
 ## Légal (Belgique)
 
 - Pages `mentions-legales.html` (Code de droit économique art. III.74 et XII.6 : nom, BCE, TVA, adresse, autorisation ambulante, AFSCA) et `confidentialite.html` (RGPD, Autorité de protection des données).
