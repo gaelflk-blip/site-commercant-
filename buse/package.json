@@ -1,0 +1,9 @@
+{
+  "name": "buse-site",
+  "private": true,
+  "type": "module",
+  "description": "Site de Büse. Dépendance utilisée seulement par les fonctions de l'admin sur Netlify.",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.12"
+  }
+}

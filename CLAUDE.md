@@ -81,7 +81,15 @@ Installés après une revue de sécurité (novembre 2026), seulement les parties
 
 - Le contenu qui change souvent est dans `buse/contenu.json` (saison hiver/normale, carte et prix, `masque` = boisson indisponible, options, annonce du moment, marchés, liens Instagram). `contenu.js` l'applique à la page au chargement (`fetch` en `no-cache`) ; la carte écrite dans le HTML sert de secours. `consent.js` lit marchés et Instagram depuis ce fichier.
 - **Admin maison** `buse/admin/index.html` (Decap a été essayé puis abandonné : fait pour ordinateur, peu lisible sur iPhone). Pensé téléphone, inspiré des meilleurs éditeurs : toucher une ligne pour la modifier (Shopify), prix avec −/+, interrupteur « Disponible » (rupture), choix de saison en un geste, annonce avec idées de messages, onglet **Aperçu** en direct (iframe `?apercu=1` + `postMessage`, même origine), brouillon gardé dans le navigateur (rien n'est perdu), **liste des changements avant de publier** (« Espresso : 2,50 € → 2,80 € »), « Tout annuler ».
-- Publication : `POST /api/publier` avec en-tête `X-Admin-Password`. Test sur l'ordinateur : `node outils/admin-local.js` (port 8082, écrit `buse/contenu.json`). **En ligne : à faire au moment de l'hébergement** (fonction Netlify qui vérifie le mot de passe et écrit `contenu.json` via l'API GitHub avec un jeton gardé côté serveur ; le commerçant n'a pas besoin de compte GitHub).
+- **Sécurité (Gaël veut que personne ne puisse pirater)** : fonctions Netlify `buse/netlify/functions/connexion.mjs` et `publier.mjs`, logique dans `buse/netlify/lib/` :
+  - mot de passe (empreinte scrypt seulement) **+ code à 6 chiffres** d'une appli d'authentification (TOTP, un code ne sert qu'une fois) ;
+  - blocage : 5 essais ratés par IP en 15 min, 20 au total en 1 h (Netlify Blobs) ;
+  - session signée HMAC dans un cookie `__Host-` HttpOnly Secure SameSite=Strict, 8 h ; en-tête Origin vérifié (anti-CSRF) ;
+  - contenu vérifié champ par champ (seuls les champs prévus, longueurs, prix 0–100, pas de `<` ni `>`, liens Instagram seulement) ;
+  - le jeton GitHub (fine-grained, un seul dépôt, Contents en écriture) reste dans les variables Netlify et n'écrit que `contenu.json` ; chaque publication est un commit (retour en arrière possible) ;
+  - `buse/netlify.toml` : en-têtes de sécurité, CSP stricte sur `/admin/*` (script dans `admin/admin.js`, aucun script intégré), Node 22.
+  - Tests : `node outils/admin-local.mjs` (mêmes fonctions, http://localhost:8090/admin/) ; 25 attaques testées et bloquées. Accès : `node outils/creer-acces.mjs "Büse"` (mot de passe 5 mots + clé TOTP + secrets à coller dans Netlify ; ne jamais les mettre dans le dépôt public).
+  - Limite connue : quelqu'un qui spamme des essais peut fermer l'admin 1 h (jamais l'ouvrir).
 - Pour Aslan, même principe à reproduire si Gaël valide.
 
 ## SEO et mise en ligne
